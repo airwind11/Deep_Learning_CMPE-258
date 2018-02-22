@@ -1,0 +1,2050 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{assignment\_2\_Aravinda\_Misra}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}197}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{linear\PYZus{}model}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{StandardScaler}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{mean\PYZus{}squared\PYZus{}error}
+          \PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{n}{sqrt}
+          \PY{k+kn}{import} \PY{n+nn}{tensorflow} \PY{k}{as} \PY{n+nn}{tf}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{PolynomialFeatures}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{Ridge}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{Lasso}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{utils} \PY{k}{import} \PY{n}{resample}
+\end{Verbatim}
+
+
+    \hypertarget{fit-the-data-using-linear-1st-order-regression-model-matrix-form-gradient-descent-method.}{%
+\section{1-1. Fit the data using linear (1st order) regression model
+(matrix form, gradient descent
+method).}\label{fit-the-data-using-linear-1st-order-regression-model-matrix-form-gradient-descent-method.}}
+
+\hypertarget{plot-the-data-with-the-fitted-line.-print-optimized-weights.-print-root-mean-squared-error-rmse.}{%
+\subsubsection{Plot the data with the fitted line. Print optimized
+weights. Print Root Mean Squared Error
+(RMSE).}\label{plot-the-data-with-the-fitted-line.-print-optimized-weights.-print-root-mean-squared-error-rmse.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}198}]:} \PY{n}{data1} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ex2data1.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{X\PYZus{}1} \PY{o}{=} \PY{n}{data1}\PY{o}{.}\PY{n}{as\PYZus{}matrix}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{n}{data1}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+          \PY{n}{Y\PYZus{}1} \PY{o}{=} \PY{n}{data1}\PY{o}{.}\PY{n}{as\PYZus{}matrix}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{n}{data1}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+          \PY{n}{X\PYZus{}1\PYZus{}coloumn\PYZus{}added} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{c\PYZus{}}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{data1}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{X\PYZus{}1}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}199}]:} \PY{k}{def} \PY{n+nf}{weight\PYZus{}optimizer}\PY{p}{(}\PY{n}{data}\PY{p}{,}\PY{n}{degree}\PY{p}{,}\PY{n}{Label}\PY{p}{,}\PY{n}{learn\PYZus{}rate} \PY{o}{=} \PY{o}{.}\PY{l+m+mi}{01}\PY{p}{,}\PY{n}{epochs} \PY{o}{=} \PY{l+m+mi}{100000}\PY{p}{,}\PY{n}{regularisation\PYZus{}alpha}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+              \PY{n}{theta\PYZus{}1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{degree}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+              \PY{k}{for} \PY{n}{epoch} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{epochs}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{gradients} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{2}\PY{o}{/}\PY{n}{data}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{*} \PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{theta\PYZus{}1}\PY{p}{)}\PY{o}{\PYZhy{}} \PY{n}{Label}\PY{p}{)}\PY{o}{+}\PY{n}{regularisation\PYZus{}alpha}\PY{o}{*}\PY{n}{theta\PYZus{}1}\PY{p}{)}
+                  \PY{n}{theta\PYZus{}1} \PY{o}{=} \PY{n}{theta\PYZus{}1} \PY{o}{\PYZhy{}} \PY{n}{learn\PYZus{}rate} \PY{o}{*} \PY{n}{gradients}
+              \PY{k}{return} \PY{n}{theta\PYZus{}1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}200}]:} \PY{k}{def} \PY{n+nf}{rmse\PYZus{}calculator}\PY{p}{(}\PY{n}{data}\PY{p}{,}\PY{n}{weights}\PY{p}{,}\PY{n}{actual\PYZus{}label}\PY{p}{)}\PY{p}{:}
+              \PY{n}{predict\PYZus{}y} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{weights}\PY{p}{)}
+              \PY{n}{rms} \PY{o}{=} \PY{n}{sqrt}\PY{p}{(}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{actual\PYZus{}label}\PY{p}{,} \PY{n}{predict\PYZus{}y}\PY{p}{)}\PY{p}{)}
+              \PY{k}{return} \PY{n}{rms}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}201}]:} \PY{c+c1}{\PYZsh{} Please input sorted data}
+          \PY{k}{def} \PY{n+nf}{graph\PYZus{}plotter}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}dn\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{weights}\PY{p}{,}\PY{n}{actual\PYZus{}label}\PY{p}{,}\PY{n}{graph\PYZus{}label}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+              \PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}dn\PYZus{}scaled\PYZus{}coloumn\PYZus{}added\PYZus{}sorted} \PY{o}{=} \PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}dn\PYZus{}scaled\PYZus{}coloumn\PYZus{}added} \PY{p}{[}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}dn\PYZus{}scaled\PYZus{}coloumn\PYZus{}added} \PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{argsort}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}dn\PYZus{}scaled\PYZus{}coloumn\PYZus{}added\PYZus{}sorted}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{actual\PYZus{}label}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{y\PYZus{}1\PYZus{}dn\PYZus{}plot} \PY{o}{=} \PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}dn\PYZus{}scaled\PYZus{}coloumn\PYZus{}added\PYZus{}sorted}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{weights}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}dn\PYZus{}scaled\PYZus{}coloumn\PYZus{}added\PYZus{}sorted}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{y\PYZus{}1\PYZus{}dn\PYZus{}plot}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{n}{graph\PYZus{}label}\PY{p}{)}
+              \PY{n}{legend} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{shadow}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}202}]:} \PY{n}{scaler} \PY{o}{=} \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}203}]:} \PY{k}{def} \PY{n+nf}{polynomial\PYZus{}adder}\PY{p}{(}\PY{n}{data}\PY{p}{,}\PY{n}{degree}\PY{p}{)}\PY{p}{:}
+              \PY{n}{poly\PYZus{}features} \PY{o}{=} \PY{n}{PolynomialFeatures}\PY{p}{(}\PY{n}{degree}\PY{o}{=}\PY{n}{degree}\PY{p}{,} \PY{n}{include\PYZus{}bias}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+              \PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}dn} \PY{o}{=} \PY{n}{poly\PYZus{}features}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+              \PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}dn\PYZus{}scaled} \PY{o}{=} \PY{n}{scaler}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}dn}\PY{p}{)}
+              \PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}dn\PYZus{}scaled\PYZus{}coloumn\PYZus{}added} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{c\PYZus{}}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}dn\PYZus{}scaled}\PY{p}{]}
+              \PY{c+c1}{\PYZsh{}\PYZsh{} Sorting for graph plotting}
+              \PY{c+c1}{\PYZsh{}X\PYZus{}1\PYZus{}poly\PYZus{}dn\PYZus{}scaled\PYZus{}coloumn\PYZus{}added = X\PYZus{}1\PYZus{}poly\PYZus{}dn\PYZus{}scaled\PYZus{}coloumn\PYZus{}added [X\PYZus{}1\PYZus{}poly\PYZus{}dn\PYZus{}scaled\PYZus{}coloumn\PYZus{}added [:,1].argsort()]}
+              \PY{k}{return} \PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}dn\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}
+\end{Verbatim}
+
+
+    \hypertarget{optimized-weight---deg1}{%
+\subsection{Optimized Weight - Deg1}\label{optimized-weight---deg1}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}204}]:} \PY{n}{theta\PYZus{}1} \PY{o}{=} \PY{n}{weight\PYZus{}optimizer}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{)}
+          \PY{n+nb}{print} \PY{p}{(}\PY{n}{theta\PYZus{}1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[ 1.07581132]
+ [-1.1887203 ]]
+
+    \end{Verbatim}
+
+    \hypertarget{rmse---deg1}{%
+\subsection{RMSE - Deg1}\label{rmse---deg1}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}205}]:} \PY{n}{rms\PYZus{}1} \PY{o}{=} \PY{n}{rmse\PYZus{}calculator}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{theta\PYZus{}1}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{)}
+          \PY{n+nb}{print} \PY{p}{(}\PY{n}{rms\PYZus{}1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.47624021947640577
+
+    \end{Verbatim}
+
+    \hypertarget{plot---deg1}{%
+\subsection{Plot - Deg1}\label{plot---deg1}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}206}]:} \PY{n}{graph\PYZus{}plotter}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{theta\PYZus{}1}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+No handles with labels found to put in legend.
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{fit-the-data-using-2nd-order-polynomial-regression-model-matrix-form-gradient-descent-method.}{%
+\section{1-2. Fit the data using 2nd order polynomial regression model
+(matrix form, gradient descent
+method).}\label{fit-the-data-using-2nd-order-polynomial-regression-model-matrix-form-gradient-descent-method.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}207}]:} \PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d2\PYZus{}scaled\PYZus{}coloumn\PYZus{}added} \PY{o}{=} \PY{n}{polynomial\PYZus{}adder}\PY{p}{(}\PY{n}{X\PYZus{}1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{optimized-weight---deg2}{%
+\subsection{Optimized Weight - deg2}\label{optimized-weight---deg2}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}208}]:} \PY{n}{theta\PYZus{}1\PYZus{}d2} \PY{o}{=} \PY{n}{weight\PYZus{}optimizer}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d2\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{,}\PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{1000000}\PY{p}{)}
+          \PY{n+nb}{print} \PY{p}{(}\PY{n}{theta\PYZus{}1\PYZus{}d2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[ 0.45269151]
+ [ 1.13735736]
+ [-1.51236155]]
+
+    \end{Verbatim}
+
+    \hypertarget{rmse}{%
+\subsection{RMSE}\label{rmse}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}209}]:} \PY{n}{rms\PYZus{}1\PYZus{}d2} \PY{o}{=} \PY{n}{rmse\PYZus{}calculator}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d2\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{theta\PYZus{}1\PYZus{}d2}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{)}
+          \PY{n+nb}{print} \PY{p}{(}\PY{n}{rms\PYZus{}1\PYZus{}d2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.2856992946970416
+
+    \end{Verbatim}
+
+    \hypertarget{plot---deg2}{%
+\subsection{Plot - deg2}\label{plot---deg2}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}210}]:} \PY{n}{graph\PYZus{}plotter}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d2\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{theta\PYZus{}1\PYZus{}d2}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+No handles with labels found to put in legend.
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{fit-the-data-using-4th-order-polynomial-regression-model-matrix-form-gradient-descent-method.}{%
+\section{1-3. Fit the data using 4th order polynomial regression model
+(matrix form, gradient descent
+method).}\label{fit-the-data-using-4th-order-polynomial-regression-model-matrix-form-gradient-descent-method.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}211}]:} \PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d4\PYZus{}scaled\PYZus{}coloumn\PYZus{}added} \PY{o}{=} \PY{n}{polynomial\PYZus{}adder}\PY{p}{(}\PY{n}{X\PYZus{}1}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{optimized-weight---deg4}{%
+\subsection{Optimized Weight - deg4}\label{optimized-weight---deg4}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}212}]:} \PY{n}{theta\PYZus{}1\PYZus{}d4} \PY{o}{=} \PY{n}{weight\PYZus{}optimizer}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d4\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{,}\PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{1000000}\PY{p}{)}
+          \PY{n+nb}{print} \PY{p}{(}\PY{n}{theta\PYZus{}1\PYZus{}d4}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[ 0.45269151]
+ [ 1.29328167]
+ [-1.97124121]
+ [ 0.40758024]
+ [-0.09772327]]
+
+    \end{Verbatim}
+
+    \hypertarget{rmse-deg-4}{%
+\subsection{RMSE Deg-4}\label{rmse-deg-4}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}213}]:} \PY{n}{rms\PYZus{}1\PYZus{}d4} \PY{o}{=} \PY{n}{rmse\PYZus{}calculator}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d4\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{theta\PYZus{}1\PYZus{}d4}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{)}
+          \PY{n+nb}{print} \PY{p}{(}\PY{n}{rms\PYZus{}1\PYZus{}d4}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.2853539310798953
+
+    \end{Verbatim}
+
+    \hypertarget{graph_deg-4}{%
+\subsection{Graph\_Deg 4}\label{graph_deg-4}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}214}]:} \PY{n}{graph\PYZus{}plotter}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d4\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{theta\PYZus{}1\PYZus{}d4}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+No handles with labels found to put in legend.
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{fit-the-data-using-16th-order-polynomial-regression-model-matrix-form-gradient-descent-method.}{%
+\section{1-4. Fit the data using 16th order polynomial regression model
+(matrix form, gradient descent
+method).}\label{fit-the-data-using-16th-order-polynomial-regression-model-matrix-form-gradient-descent-method.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}215}]:} \PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added} \PY{o}{=} \PY{n}{polynomial\PYZus{}adder}\PY{p}{(}\PY{n}{X\PYZus{}1}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{optimized-weight---deg16}{%
+\subsection{Optimized Weight - deg16}\label{optimized-weight---deg16}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}216}]:} \PY{n}{theta\PYZus{}1\PYZus{}d16} \PY{o}{=} \PY{n}{weight\PYZus{}optimizer}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{,}\PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{1000000}\PY{p}{)}
+          \PY{n+nb}{print} \PY{p}{(}\PY{n}{theta\PYZus{}1\PYZus{}d16}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[ 0.45269151]
+ [ 0.90569215]
+ [-0.63905604]
+ [ 0.58174172]
+ [-2.18981068]
+ [-0.36381962]
+ [-0.48679136]
+ [ 0.03242304]
+ [ 1.22399681]
+ [ 1.3783914 ]
+ [ 0.51790883]
+ [ 0.54350124]
+ [-1.12891568]
+ [ 0.26915691]
+ [ 0.5333662 ]
+ [-0.19490954]
+ [-1.39357019]]
+
+    \end{Verbatim}
+
+    \hypertarget{rmse---deg4}{%
+\subsection{RMSE - Deg4}\label{rmse---deg4}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}217}]:} \PY{n}{rms\PYZus{}1\PYZus{}d16} \PY{o}{=} \PY{n}{rmse\PYZus{}calculator}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{theta\PYZus{}1\PYZus{}d16}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{)}
+          \PY{n+nb}{print} \PY{p}{(}\PY{n}{rms\PYZus{}1\PYZus{}d16}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.2625062559634639
+
+    \end{Verbatim}
+
+    \hypertarget{graph_deg-16}{%
+\subsection{Graph\_Deg 16}\label{graph_deg-16}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}218}]:} \PY{n}{graph\PYZus{}plotter}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{theta\PYZus{}1\PYZus{}d16}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+No handles with labels found to put in legend.
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{fit-the-data-using-16th-order-polynomial-regression-model-with-ridge-l2-penalty-regularization-matrix-form-gradient-descent-method.}{%
+\section{1-5. Fit the data using 16th order polynomial regression model
+with ridge (L2 penalty) regularization (matrix form, gradient descent
+method).}\label{fit-the-data-using-16th-order-polynomial-regression-model-with-ridge-l2-penalty-regularization-matrix-form-gradient-descent-method.}}
+
+\hypertarget{you-need-to-try-at-least-3-different-l2-penalty-for-example-ux3bb-0.1-1-10.}{%
+\subsection{You need to try at least 3 different L2 penalty (for
+example, λ = 0.1, 1,
+10).}\label{you-need-to-try-at-least-3-different-l2-penalty-for-example-ux3bb-0.1-1-10.}}
+
+    \hypertarget{ux3bb-0.1}{%
+\subsubsection{λ = 0.1}\label{ux3bb-0.1}}
+
+    \hypertarget{optimized-weights-ux3bb-0.1}{%
+\paragraph{Optimized weights λ =
+0.1}\label{optimized-weights-ux3bb-0.1}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}219}]:} \PY{n}{theta\PYZus{}1\PYZus{}d16\PYZus{}regularised\PYZus{}1} \PY{o}{=} \PY{n}{weight\PYZus{}optimizer}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{,}\PY{n}{regularisation\PYZus{}alpha}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{)}
+          \PY{n+nb}{print} \PY{p}{(}\PY{n}{theta\PYZus{}1\PYZus{}d16\PYZus{}regularised\PYZus{}1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[ 0.45118755]
+ [ 0.78496938]
+ [-0.41986364]
+ [-0.64770631]
+ [-0.48516438]
+ [-0.22691241]
+ [ 0.00677979]
+ [ 0.17744631]
+ [ 0.27520327]
+ [ 0.30862102]
+ [ 0.28991242]
+ [ 0.22673522]
+ [ 0.12928467]
+ [ 0.01020639]
+ [-0.12850398]
+ [-0.27605485]
+ [-0.43514748]]
+
+    \end{Verbatim}
+
+    \hypertarget{rmse---ux3bb-0.1}{%
+\paragraph{RMSE - λ = 0.1}\label{rmse---ux3bb-0.1}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}220}]:} \PY{n}{rms\PYZus{}1\PYZus{}d16\PYZus{}regularised\PYZus{}1} \PY{o}{=} \PY{n}{rmse\PYZus{}calculator}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{theta\PYZus{}1\PYZus{}d16\PYZus{}regularised\PYZus{}1}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{)}
+          \PY{n+nb}{print} \PY{p}{(}\PY{n}{rms\PYZus{}1\PYZus{}d16\PYZus{}regularised\PYZus{}1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.2693872247572115
+
+    \end{Verbatim}
+
+    \hypertarget{ux3bb-1}{%
+\subsubsection{λ = 1}\label{ux3bb-1}}
+
+    \hypertarget{optimized-weights-ux3bb-1}{%
+\paragraph{Optimized weights λ = 1}\label{optimized-weights-ux3bb-1}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}221}]:} \PY{n}{theta\PYZus{}1\PYZus{}d16\PYZus{}regularised\PYZus{}2} \PY{o}{=} \PY{n}{weight\PYZus{}optimizer}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{,}\PY{n}{regularisation\PYZus{}alpha}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n+nb}{print} \PY{p}{(}\PY{n}{theta\PYZus{}1\PYZus{}d16\PYZus{}regularised\PYZus{}2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[ 0.43808856]
+ [ 0.30532714]
+ [-0.11714469]
+ [-0.21555533]
+ [-0.18959658]
+ [-0.12931817]
+ [-0.06945018]
+ [-0.02187918]
+ [ 0.01069068]
+ [ 0.02911397]
+ [ 0.03545038]
+ [ 0.03198174]
+ [ 0.02082246]
+ [ 0.00379041]
+ [-0.01760999]
+ [-0.04215991]
+ [-0.06888419]]
+
+    \end{Verbatim}
+
+    \hypertarget{rmse---ux3bb-1}{%
+\paragraph{RMSE - λ = 1}\label{rmse---ux3bb-1}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}222}]:} \PY{n}{rms\PYZus{}1\PYZus{}d16\PYZus{}regularised\PYZus{}2} \PY{o}{=} \PY{n}{rmse\PYZus{}calculator}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{theta\PYZus{}1\PYZus{}d16\PYZus{}regularised\PYZus{}2}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{)}
+          \PY{n+nb}{print} \PY{p}{(}\PY{n}{rms\PYZus{}1\PYZus{}d16\PYZus{}regularised\PYZus{}2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.30190806311237905
+
+    \end{Verbatim}
+
+    \hypertarget{ux3bb-10}{%
+\subsubsection{λ = 10}\label{ux3bb-10}}
+
+    \hypertarget{optimized-weights-ux3bb-10}{%
+\paragraph{Optimized weights λ = 10}\label{optimized-weights-ux3bb-10}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}223}]:} \PY{n}{theta\PYZus{}1\PYZus{}d16\PYZus{}regularised\PYZus{}3} \PY{o}{=} \PY{n}{weight\PYZus{}optimizer}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{,}\PY{n}{regularisation\PYZus{}alpha}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+          \PY{n+nb}{print} \PY{p}{(}\PY{n}{theta\PYZus{}1\PYZus{}d16\PYZus{}regularised\PYZus{}3}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[ 0.33951863]
+ [ 0.05560105]
+ [-0.02707079]
+ [-0.0564417 ]
+ [-0.06173571]
+ [-0.05764355]
+ [-0.05057775]
+ [-0.04323712]
+ [-0.03668487]
+ [-0.03126116]
+ [-0.02699188]
+ [-0.02377544]
+ [-0.02146823]
+ [-0.01992273]
+ [-0.01900323]
+ [-0.01859114]
+ [-0.01858551]]
+
+    \end{Verbatim}
+
+    \hypertarget{rmse---ux3bb-10}{%
+\paragraph{RMSE - λ = 10}\label{rmse---ux3bb-10}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}224}]:} \PY{n}{rms\PYZus{}1\PYZus{}d16\PYZus{}regularised\PYZus{}3} \PY{o}{=} \PY{n}{rmse\PYZus{}calculator}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{theta\PYZus{}1\PYZus{}d16\PYZus{}regularised\PYZus{}3}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{)}
+          \PY{n+nb}{print} \PY{p}{(}\PY{n}{rms\PYZus{}1\PYZus{}d16\PYZus{}regularised\PYZus{}3}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.34575123097106086
+
+    \end{Verbatim}
+
+    \hypertarget{graph-plot-ux3bb-0.1110}{%
+\paragraph{Graph Plot λ = 0.1,1,10}\label{graph-plot-ux3bb-0.1110}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}225}]:} \PY{n}{graph\PYZus{}plotter}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{theta\PYZus{}1\PYZus{}d16\PYZus{}regularised\PYZus{}1}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{,}\PY{n}{graph\PYZus{}label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{λ = 0.1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{graph\PYZus{}plotter}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{theta\PYZus{}1\PYZus{}d16\PYZus{}regularised\PYZus{}2}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{,}\PY{n}{graph\PYZus{}label}\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{λ = 1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{graph\PYZus{}plotter}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{theta\PYZus{}1\PYZus{}d16\PYZus{}regularised\PYZus{}3}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{,}\PY{n}{graph\PYZus{}label}\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{λ = 10}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_55_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{fit-the-data-using-16th-order-polynomial-regression-model-with-scikit-learn-ridge-model.}{%
+\section{1-6. Fit the data using 16th order polynomial regression model
+with scikit-learn Ridge
+model.}\label{fit-the-data-using-16th-order-polynomial-regression-model-with-scikit-learn-ridge-model.}}
+
+\hypertarget{you-need-to-try-at-least-3-different-l2-penalty-for-example-ux3bb-0.1-1-10.}{%
+\subsection{You need to try at least 3 different L2 penalty (for
+example, λ = 0.1, 1,
+10).}\label{you-need-to-try-at-least-3-different-l2-penalty-for-example-ux3bb-0.1-1-10.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}226}]:} \PY{n}{alpha} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}227}]:} \PY{k}{def} \PY{n+nf}{ridge\PYZus{}optimized\PYZus{}weight}\PY{p}{(}\PY{n}{data}\PY{p}{,}\PY{n}{label}\PY{p}{,}\PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{)}\PY{p}{:}
+              \PY{n}{ridge\PYZus{}reg} \PY{o}{=} \PY{n}{Ridge}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{n}{alpha}\PY{p}{,} \PY{n}{solver}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cholesky}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{ridge\PYZus{}mode1} \PY{o}{=} \PY{n}{ridge\PYZus{}reg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{p}{)}
+              \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Model\PYZhy{}Intercept}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{ridge\PYZus{}mode1}\PY{o}{.}\PY{n}{intercept\PYZus{}}\PY{p}{)}
+              \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Model\PYZhy{}Co\PYZhy{}ef}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{ridge\PYZus{}mode1}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+              \PY{k}{return} \PY{n}{ridge\PYZus{}mode1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}228}]:} \PY{k}{def} \PY{n+nf}{ridge\PYZus{}lasso\PYZus{}graph\PYZus{}plotter}\PY{p}{(}\PY{n}{data}\PY{p}{,}\PY{n}{actual\PYZus{}label}\PY{p}{,}\PY{n}{ridge\PYZus{}model}\PY{p}{,}\PY{n}{graph\PYZus{}label}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+              \PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}dn\PYZus{}scaled\PYZus{}coloumn\PYZus{}added\PYZus{}sorted} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{argsort}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+              \PY{n}{Y\PYZus{}ridge\PYZus{}mode1\PYZus{}1\PYZus{}predict} \PY{o}{=} \PY{n}{ridge\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}dn\PYZus{}scaled\PYZus{}coloumn\PYZus{}added\PYZus{}sorted}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}dn\PYZus{}scaled\PYZus{}coloumn\PYZus{}added\PYZus{}sorted}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{actual\PYZus{}label}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}dn\PYZus{}scaled\PYZus{}coloumn\PYZus{}added\PYZus{}sorted}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{Y\PYZus{}ridge\PYZus{}mode1\PYZus{}1\PYZus{}predict}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{n}{graph\PYZus{}label}\PY{p}{)}
+              \PY{n}{legend} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{shadow}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}229}]:} \PY{k}{def} \PY{n+nf}{ridge\PYZus{}lasso\PYZus{}rmse}\PY{p}{(}\PY{n}{data}\PY{p}{,}\PY{n}{actual\PYZus{}label}\PY{p}{,}\PY{n}{ridge\PYZus{}model}\PY{p}{)}\PY{p}{:}
+              \PY{n}{Y\PYZus{}ridge\PYZus{}mode1\PYZus{}1\PYZus{}predict} \PY{o}{=} \PY{n}{ridge\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+              \PY{n}{rms} \PY{o}{=} \PY{n}{sqrt}\PY{p}{(}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{actual\PYZus{}label}\PY{p}{,} \PY{n}{Y\PYZus{}ridge\PYZus{}mode1\PYZus{}1\PYZus{}predict}\PY{p}{)}\PY{p}{)}
+              \PY{k}{return} \PY{n}{rms}
+              
+\end{Verbatim}
+
+
+    \hypertarget{optimized_weights-ridge-ux3bb-0.1}{%
+\paragraph{Optimized\_Weights ridge λ =
+0.1}\label{optimized_weights-ridge-ux3bb-0.1}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}230}]:} \PY{n}{ridge\PYZus{}mode1\PYZus{}1} \PY{o}{=} \PY{n}{ridge\PYZus{}optimized\PYZus{}weight}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{,}\PY{l+m+mf}{0.1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model-Intercept [0.45269151]
+Model-Co-ef [[ 0.78485691]
+ [-0.41980483]
+ [-0.6474652 ]
+ [-0.48475686]
+ [-0.22708056]
+ [ 0.00646183]
+ [ 0.17607267]
+ [ 0.27503508]
+ [ 0.30951311]
+ [ 0.28986803]
+ [ 0.22699526]
+ [ 0.13087521]
+ [ 0.01010497]
+ [-0.12814542]
+ [-0.27800671]
+ [-0.43473061]]
+
+    \end{Verbatim}
+
+    \hypertarget{rmse-ridge-ux3bb-0.1}{%
+\paragraph{RMSE ridge λ = 0.1}\label{rmse-ridge-ux3bb-0.1}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}231}]:} \PY{n}{rms\PYZus{}ridge\PYZus{}1} \PY{o}{=} \PY{n}{ridge\PYZus{}lasso\PYZus{}rmse}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{,}\PY{n}{ridge\PYZus{}mode1\PYZus{}1}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{rms\PYZus{}ridge\PYZus{}1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.2693814634185468
+
+    \end{Verbatim}
+
+    \hypertarget{optimized-weights-ridge-ux3bb-1}{%
+\paragraph{Optimized Weights Ridge λ =
+1}\label{optimized-weights-ridge-ux3bb-1}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}232}]:} \PY{n}{ridge\PYZus{}mode1\PYZus{}2} \PY{o}{=} \PY{n}{ridge\PYZus{}optimized\PYZus{}weight}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model-Intercept [0.45269151]
+Model-Co-ef [[ 0.30532714]
+ [-0.11714469]
+ [-0.21555533]
+ [-0.18959658]
+ [-0.12931817]
+ [-0.06945018]
+ [-0.02187918]
+ [ 0.01069068]
+ [ 0.02911397]
+ [ 0.03545038]
+ [ 0.03198174]
+ [ 0.02082246]
+ [ 0.00379041]
+ [-0.01760999]
+ [-0.04215991]
+ [-0.06888419]]
+
+    \end{Verbatim}
+
+    \hypertarget{rmse-ridge-ux3bb-1}{%
+\paragraph{RMSE ridge λ = 1}\label{rmse-ridge-ux3bb-1}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}233}]:} \PY{n}{rms\PYZus{}ridge\PYZus{}2} \PY{o}{=} \PY{n}{ridge\PYZus{}lasso\PYZus{}rmse}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{,}\PY{n}{ridge\PYZus{}mode1\PYZus{}2}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{rms\PYZus{}ridge\PYZus{}2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.3015546921663988
+
+    \end{Verbatim}
+
+    \hypertarget{optimized-weights-ridge-ux3bb-10}{%
+\paragraph{Optimized Weights Ridge λ =
+10}\label{optimized-weights-ridge-ux3bb-10}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}234}]:} \PY{n}{ridge\PYZus{}mode1\PYZus{}3} \PY{o}{=} \PY{n}{ridge\PYZus{}optimized\PYZus{}weight}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model-Intercept [0.45269151]
+Model-Co-ef [[ 0.05560105]
+ [-0.02707079]
+ [-0.0564417 ]
+ [-0.06173571]
+ [-0.05764355]
+ [-0.05057775]
+ [-0.04323712]
+ [-0.03668487]
+ [-0.03126116]
+ [-0.02699188]
+ [-0.02377544]
+ [-0.02146823]
+ [-0.01992273]
+ [-0.01900323]
+ [-0.01859114]
+ [-0.01858551]]
+
+    \end{Verbatim}
+
+    \hypertarget{rmse-ridge-ux3bb-10}{%
+\paragraph{RMSE ridge λ = 10}\label{rmse-ridge-ux3bb-10}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}235}]:} \PY{n}{rms\PYZus{}ridge\PYZus{}3} \PY{o}{=} \PY{n}{ridge\PYZus{}lasso\PYZus{}rmse}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{,}\PY{n}{ridge\PYZus{}mode1\PYZus{}3}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{rms\PYZus{}ridge\PYZus{}3}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.3267044743318329
+
+    \end{Verbatim}
+
+    \hypertarget{graph-plot-ridge-ux3bb-0.1110}{%
+\paragraph{Graph Plot Ridge λ =
+0.1,1,10}\label{graph-plot-ridge-ux3bb-0.1110}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}236}]:} \PY{n}{ridge\PYZus{}lasso\PYZus{}graph\PYZus{}plotter}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{,}\PY{n}{ridge\PYZus{}mode1\PYZus{}1}\PY{p}{,}\PY{n}{graph\PYZus{}label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ridge 0.1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ridge\PYZus{}lasso\PYZus{}graph\PYZus{}plotter}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{,}\PY{n}{ridge\PYZus{}mode1\PYZus{}2}\PY{p}{,}\PY{n}{graph\PYZus{}label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ridge 1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ridge\PYZus{}lasso\PYZus{}graph\PYZus{}plotter}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{,}\PY{n}{ridge\PYZus{}mode1\PYZus{}3}\PY{p}{,}\PY{n}{graph\PYZus{}label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ridge 10}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_74_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{fit-the-data-using-16th-order-polynomial-regression-model-with-scikit-learn-lasso-model.}{%
+\subsection{1-7. Fit the data using 16th order polynomial regression
+model with scikit-learn Lasso
+model.}\label{fit-the-data-using-16th-order-polynomial-regression-model-with-scikit-learn-lasso-model.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}237}]:} \PY{k}{def} \PY{n+nf}{lasso\PYZus{}optimized\PYZus{}weight}\PY{p}{(}\PY{n}{data}\PY{p}{,}\PY{n}{label}\PY{p}{,}\PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{)}\PY{p}{:}
+              \PY{n}{lasso\PYZus{}reg} \PY{o}{=} \PY{n}{Lasso}\PY{p}{(}\PY{n}{alpha}\PY{p}{)}
+              \PY{n}{lasso\PYZus{}mode1} \PY{o}{=} \PY{n}{lasso\PYZus{}reg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{p}{)}
+              \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Model\PYZhy{}Intercept}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{lasso\PYZus{}mode1}\PY{o}{.}\PY{n}{intercept\PYZus{}}\PY{p}{)}
+              \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Model\PYZhy{}Co\PYZhy{}ef}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{lasso\PYZus{}mode1}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+              \PY{k}{return} \PY{n}{lasso\PYZus{}mode1}
+\end{Verbatim}
+
+
+    \hypertarget{optimized_weights-lasso-ux3bb-0.1}{%
+\paragraph{Optimized\_Weights lasso λ =
+0.1}\label{optimized_weights-lasso-ux3bb-0.1}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}238}]:} \PY{n}{lasso\PYZus{}mode1\PYZus{}1} \PY{o}{=} \PY{n}{lasso\PYZus{}optimized\PYZus{}weight}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{,}\PY{l+m+mf}{0.1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model-Intercept [0.45269151]
+Model-Co-ef [-0.         -0.         -0.         -0.         -0.         -0.37373874
+ -0.         -0.         -0.         -0.         -0.         -0.
+ -0.         -0.         -0.         -0.        ]
+
+    \end{Verbatim}
+
+    \hypertarget{rmse-lasso-ux3bb-0.1}{%
+\paragraph{RMSE lasso λ = 0.1}\label{rmse-lasso-ux3bb-0.1}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}239}]:} \PY{n}{rms\PYZus{}lasso\PYZus{}1} \PY{o}{=} \PY{n}{ridge\PYZus{}lasso\PYZus{}rmse}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{,}\PY{n}{lasso\PYZus{}mode1\PYZus{}1}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{rms\PYZus{}lasso\PYZus{}1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.34466712593964577
+
+    \end{Verbatim}
+
+    \hypertarget{optimized_weights-lasso-ux3bb-1}{%
+\paragraph{Optimized\_Weights lasso λ =
+1}\label{optimized_weights-lasso-ux3bb-1}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}240}]:} \PY{n}{lasso\PYZus{}mode1\PYZus{}2} \PY{o}{=} \PY{n}{lasso\PYZus{}optimized\PYZus{}weight}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model-Intercept [0.45269151]
+Model-Co-ef [-0. -0. -0. -0. -0. -0. -0. -0. -0. -0. -0. -0. -0. -0. -0. -0.]
+
+    \end{Verbatim}
+
+    \hypertarget{rmse-lasso-ux3bb-1}{%
+\paragraph{RMSE lasso λ = 1}\label{rmse-lasso-ux3bb-1}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}241}]:} \PY{n}{rms\PYZus{}lasso\PYZus{}2} \PY{o}{=} \PY{n}{ridge\PYZus{}lasso\PYZus{}rmse}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{,}\PY{n}{lasso\PYZus{}mode1\PYZus{}2}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{rms\PYZus{}lasso\PYZus{}2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.5772554182087681
+
+    \end{Verbatim}
+
+    \hypertarget{optimized_weights-lasso-ux3bb-10}{%
+\paragraph{Optimized\_Weights lasso λ =
+10}\label{optimized_weights-lasso-ux3bb-10}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}242}]:} \PY{n}{lasso\PYZus{}mode1\PYZus{}3} \PY{o}{=} \PY{n}{lasso\PYZus{}optimized\PYZus{}weight}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model-Intercept [0.45269151]
+Model-Co-ef [-0. -0. -0. -0. -0. -0. -0. -0. -0. -0. -0. -0. -0. -0. -0. -0.]
+
+    \end{Verbatim}
+
+    \hypertarget{rmse-lasso-ux3bb-10}{%
+\paragraph{RMSE lasso λ = 10}\label{rmse-lasso-ux3bb-10}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}243}]:} \PY{n}{rms\PYZus{}lasso\PYZus{}3} \PY{o}{=} \PY{n}{ridge\PYZus{}lasso\PYZus{}rmse}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{,}\PY{n}{lasso\PYZus{}mode1\PYZus{}3}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{rms\PYZus{}lasso\PYZus{}3}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.5772554182087681
+
+    \end{Verbatim}
+
+    \hypertarget{graph-plot-lasso-ux3bb-0.1110}{%
+\paragraph{Graph Plot Lasso λ =
+0.1,1,10}\label{graph-plot-lasso-ux3bb-0.1110}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}244}]:} \PY{n}{ridge\PYZus{}lasso\PYZus{}graph\PYZus{}plotter}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{,}\PY{n}{lasso\PYZus{}mode1\PYZus{}1}\PY{p}{,}\PY{n}{graph\PYZus{}label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lasso 0.1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ridge\PYZus{}lasso\PYZus{}graph\PYZus{}plotter}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{,}\PY{n}{lasso\PYZus{}mode1\PYZus{}2}\PY{p}{,}\PY{n}{graph\PYZus{}label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lasso 1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ridge\PYZus{}lasso\PYZus{}graph\PYZus{}plotter}\PY{p}{(}\PY{n}{X\PYZus{}1\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,}\PY{n}{Y\PYZus{}1}\PY{p}{,}\PY{n}{lasso\PYZus{}mode1\PYZus{}3}\PY{p}{,}\PY{n}{graph\PYZus{}label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lasso 10}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_90_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{polynomial-regression-with-trainvalidationtest}{%
+\subsection{2.Polynomial regression with
+train/validation/test}\label{polynomial-regression-with-trainvalidationtest}}
+
+\hypertarget{you-need-to-split-the-data-into-trainingvalidationtesting-data-set-as-60-20-20.}{%
+\subsubsection{You need to split the data into
+training/validation/testing data set as 60\% / 20\% /
+20\%.}\label{you-need-to-split-the-data-into-trainingvalidationtesting-data-set-as-60-20-20.}}
+
+\hypertarget{please-use-np.random.seed1-to-have-consistent-data-for-evaluation}{%
+\subsubsection{Please use np.random.seed(1) to have consistent data for
+evaluation}\label{please-use-np.random.seed1-to-have-consistent-data-for-evaluation}}
+
+    \hypertarget{fit-the-data-using-linear-1st-order-regression-model-matrix-form-gradient-descent-method.}{%
+\subsubsection{2-1. Fit the data using linear (1st order) regression
+model (matrix form, gradient descent
+method).}\label{fit-the-data-using-linear-1st-order-regression-model-matrix-form-gradient-descent-method.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}245}]:} \PY{c+c1}{\PYZsh{} def plot\PYZus{}learning\PYZus{}curves(model, X, y):}
+          \PY{c+c1}{\PYZsh{}     X\PYZus{}train, X\PYZus{}val, y\PYZus{}train, y\PYZus{}val = train\PYZus{}test\PYZus{}split(X, y, test\PYZus{}size=0.2)}
+          \PY{c+c1}{\PYZsh{}     train\PYZus{}errors, val\PYZus{}errors = [], []}
+          \PY{c+c1}{\PYZsh{}     for m in range(1, len(X\PYZus{}train)):}
+          \PY{c+c1}{\PYZsh{}         model.fit(X\PYZus{}train[:m], y\PYZus{}train[:m])}
+          \PY{c+c1}{\PYZsh{}         y\PYZus{}train\PYZus{}predict = model.predict(X\PYZus{}train[:m])}
+          \PY{c+c1}{\PYZsh{}         y\PYZus{}val\PYZus{}predict = model.predict(X\PYZus{}val)}
+          \PY{c+c1}{\PYZsh{}         train\PYZus{}errors.append(mean\PYZus{}squared\PYZus{}error(y\PYZus{}train\PYZus{}predict, y\PYZus{}train[:m]))}
+          \PY{c+c1}{\PYZsh{}         val\PYZus{}errors.append(mean\PYZus{}squared\PYZus{}error(y\PYZus{}val\PYZus{}predict, y\PYZus{}val))}
+          \PY{c+c1}{\PYZsh{}     plt.plot(np.sqrt(train\PYZus{}errors), \PYZdq{}r\PYZhy{}+\PYZdq{}, linewidth=2, label=\PYZdq{}train\PYZdq{})}
+          \PY{c+c1}{\PYZsh{}     plt.plot(np.sqrt(val\PYZus{}errors), \PYZdq{}b\PYZhy{}\PYZdq{}, linewidth=3, label=\PYZdq{}val\PYZdq{})}
+              
+          \PY{c+c1}{\PYZsh{} lin\PYZus{}reg = LinearRegression()}
+          \PY{c+c1}{\PYZsh{} plot\PYZus{}learning\PYZus{}curves(lin\PYZus{}reg, X, y)}
+              
+          \PY{c+c1}{\PYZsh{} from sklearn.pipeline import Pipeline}
+          
+          \PY{c+c1}{\PYZsh{} polynomial\PYZus{}regression = Pipeline([}
+          \PY{c+c1}{\PYZsh{}         (\PYZdq{}poly\PYZus{}features\PYZdq{}, PolynomialFeatures(degree=10, include\PYZus{}bias=False)),}
+          \PY{c+c1}{\PYZsh{}         (\PYZdq{}lin\PYZus{}reg\PYZdq{}, LinearRegression()),}
+          \PY{c+c1}{\PYZsh{}     ])}
+          
+          \PY{c+c1}{\PYZsh{} plot\PYZus{}learning\PYZus{}curves(polynomial\PYZus{}regression, X, y)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}246}]:} \PY{n}{data2} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ex2data2.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{X\PYZus{}2} \PY{o}{=} \PY{n}{data2}\PY{o}{.}\PY{n}{as\PYZus{}matrix}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{n}{data2}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+          \PY{n}{Y\PYZus{}2} \PY{o}{=} \PY{n}{data2}\PY{o}{.}\PY{n}{as\PYZus{}matrix}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{n}{data2}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+          \PY{n}{X\PYZus{}2\PYZus{}poly\PYZus{}d1\PYZus{}scaled} \PY{o}{=} \PY{n}{scaler}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X\PYZus{}2}\PY{p}{)}
+          \PY{n}{X\PYZus{}2\PYZus{}coloumn\PYZus{}added} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{c\PYZus{}}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{data2}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{X\PYZus{}2}\PY{p}{]}
+          \PY{n}{X\PYZus{}2\PYZus{}poly\PYZus{}d1\PYZus{}scaled\PYZus{}coloumn\PYZus{}added} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{c\PYZus{}}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{data2}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{X\PYZus{}2\PYZus{}poly\PYZus{}d1\PYZus{}scaled}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda2/envs/carnd-term1/lib/python3.5/site-packages/sklearn/utils/validation.py:475: DataConversionWarning: Data with input dtype int64 was converted to float64 by StandardScaler.
+  warnings.warn(msg, DataConversionWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}247}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{X\PYZus{}2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}247}]:} (array([2.266e+03, 2.393e+03, 6.040e+02, 1.050e+02, 2.100e+01, 1.200e+01,
+                  1.000e+00, 0.000e+00, 1.000e+00, 1.000e+00]),
+           array([  430.,  1741.,  3052.,  4363.,  5674.,  6985.,  8296.,  9607.,
+                  10918., 12229., 13540.]),
+           <a list of 10 Patch objects>)
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_95_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}248}]:} \PY{n}{X\PYZus{}2\PYZus{}train\PYZus{}val}\PY{p}{,} \PY{n}{X\PYZus{}2\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}2\PYZus{}train\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}2\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X\PYZus{}2\PYZus{}poly\PYZus{}d1\PYZus{}scaled\PYZus{}coloumn\PYZus{}added} \PY{p}{,} \PY{n}{Y\PYZus{}2}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{X\PYZus{}2\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}2\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}2\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}2\PYZus{}val} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X\PYZus{}2\PYZus{}train\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}2\PYZus{}train\PYZus{}val}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.25}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n+nb}{print} \PY{p}{(}\PY{n}{X\PYZus{}2\PYZus{}coloumn\PYZus{}added}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+          \PY{n+nb}{print} \PY{p}{(}\PY{n}{X\PYZus{}2\PYZus{}train\PYZus{}val}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+          \PY{n+nb}{print} \PY{p}{(}\PY{n}{X\PYZus{}2\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(5404, 2)
+(4323, 2)
+(3242, 2)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}249}]:} \PY{k}{def} \PY{n+nf}{Mean\PYZus{}Square\PYZus{}Error\PYZus{}calculator}\PY{p}{(}\PY{n}{data}\PY{p}{,}\PY{n}{weights}\PY{p}{,}\PY{n}{actual\PYZus{}label}\PY{p}{)}\PY{p}{:}
+              \PY{n}{predict\PYZus{}y} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{weights}\PY{p}{)}
+              \PY{n}{rms} \PY{o}{=} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{actual\PYZus{}label}\PY{p}{,} \PY{n}{predict\PYZus{}y}\PY{p}{)}
+              \PY{k}{return} \PY{n}{rms}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}250}]:} \PY{k}{def} \PY{n+nf}{train\PYZus{}val\PYZus{}best\PYZus{}model}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}val}\PY{p}{,}\PY{n}{degree}\PY{p}{)}\PY{p}{:}
+              \PY{n}{epochs} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1000}\PY{p}{,}\PY{l+m+mi}{10000}\PY{p}{,}\PY{l+m+mi}{100000}\PY{p}{]}
+              \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{p}{[}\PY{o}{.}\PY{l+m+mi}{001}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{01}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{]}
+              \PY{n}{train\PYZus{}errors}\PY{p}{,} \PY{n}{val\PYZus{}errors} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}
+              \PY{n}{counter} \PY{o}{=} \PY{l+m+mi}{1}
+              \PY{n}{combination} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+              \PY{k}{for} \PY{n}{epoch} \PY{o+ow}{in} \PY{n}{epochs}\PY{p}{:}
+                  \PY{k}{for} \PY{n}{rate} \PY{o+ow}{in} \PY{n}{learning\PYZus{}rate}\PY{p}{:}
+                      \PY{n}{weights} \PY{o}{=} \PY{n}{weight\PYZus{}optimizer}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{degree}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{learn\PYZus{}rate} \PY{o}{=} \PY{n}{rate}\PY{p}{,}\PY{n}{epochs} \PY{o}{=} \PY{n}{epoch}\PY{p}{,}\PY{n}{regularisation\PYZus{}alpha}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                      \PY{n}{rmse\PYZus{}train} \PY{o}{=} \PY{n}{rmse\PYZus{}calculator}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{weights}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}
+                      \PY{n}{rmse\PYZus{}val} \PY{o}{=} \PY{n}{rmse\PYZus{}calculator}\PY{p}{(}\PY{n}{X\PYZus{}val}\PY{p}{,}\PY{n}{weights}\PY{p}{,}\PY{n}{y\PYZus{}val}\PY{p}{)}
+                      \PY{n}{train\PYZus{}errors}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{rmse\PYZus{}train}\PY{p}{)}
+                      \PY{n}{val\PYZus{}errors}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{rmse\PYZus{}val}\PY{p}{)}
+                      \PY{n}{combination}\PY{p}{[}\PY{n}{counter}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{epoch}\PY{p}{,}\PY{n}{rate}\PY{p}{)}
+                      \PY{n}{counter} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{train\PYZus{}errors}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{r\PYZhy{}+}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{val\PYZus{}errors}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{val}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{legend} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{shadow}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{}\PYZsh{} Find the lowest validation error}
+              \PY{n}{counter\PYZus{}val\PYZus{}error} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{val\PYZus{}errors}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+              \PY{n}{counter\PYZus{}val\PYZus{}error\PYZus{}sorted} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{counter\PYZus{}val\PYZus{}error}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+              \PY{n}{best\PYZus{}model} \PY{o}{=} \PY{n}{combination}\PY{p}{[}\PY{p}{(}\PY{n}{counter\PYZus{}val\PYZus{}error\PYZus{}sorted}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{counter\PYZus{}val\PYZus{}error}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Epoch and Learning Rate Combination}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{counter\PYZus{}val\PYZus{}error\PYZus{}sorted}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{best\PYZus{}model}\PY{p}{)}
+              \PY{k}{return} \PY{n}{best\PYZus{}model}
+                
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}251}]:} \PY{n}{best\PYZus{}model\PYZus{}2} \PY{o}{=} \PY{n}{train\PYZus{}val\PYZus{}best\PYZus{}model}\PY{p}{(}\PY{n}{X\PYZus{}2\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}2\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}2\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}2\PYZus{}val}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{weights\PYZus{}best\PYZus{}model\PYZus{}2} \PY{o}{=} \PY{n}{weight\PYZus{}optimizer}\PY{p}{(}\PY{n}{X\PYZus{}2\PYZus{}train}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{y\PYZus{}2\PYZus{}train}\PY{p}{,}\PY{n}{learn\PYZus{}rate} \PY{o}{=} \PY{n}{best\PYZus{}model\PYZus{}2} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{epochs} \PY{o}{=} \PY{n}{best\PYZus{}model\PYZus{}2} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{regularisation\PYZus{}alpha}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[(1, 257488.04094283126), (2, 249622.42769314421), (3, 249622.4277054363), (4, 249622.4276900577), (5, 249622.42770543642), (6, 249622.4277054363), (7, 249622.42770543747), (8, 249622.42770543642), (9, 249622.4277054363)]
+Epoch and Learning Rate Combination 4 (10000, 0.001)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_99_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{rmse---traintest-deg--1}{%
+\paragraph{RMSE - Train,test Deg -1}\label{rmse---traintest-deg--1}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}252}]:} \PY{n}{rmse\PYZus{}train\PYZus{}2} \PY{o}{=} \PY{n}{rmse\PYZus{}calculator}\PY{p}{(}\PY{n}{X\PYZus{}2\PYZus{}train}\PY{p}{,}\PY{n}{weights\PYZus{}best\PYZus{}model\PYZus{}2}\PY{p}{,}\PY{n}{y\PYZus{}2\PYZus{}train}\PY{p}{)}
+          \PY{n}{rmse\PYZus{}test\PYZus{}2} \PY{o}{=} \PY{n}{rmse\PYZus{}calculator}\PY{p}{(}\PY{n}{X\PYZus{}2\PYZus{}test}\PY{p}{,}\PY{n}{weights\PYZus{}best\PYZus{}model\PYZus{}2}\PY{p}{,}\PY{n}{y\PYZus{}2\PYZus{}test}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rmse\PYZus{}train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{rmse\PYZus{}train\PYZus{}2}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rmse\PYZus{}test}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{rmse\PYZus{}test\PYZus{}2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+rmse\_train 275355.0256953383
+rmse\_test 264311.94247884274
+
+    \end{Verbatim}
+
+    \hypertarget{graph-train-deg-1}{%
+\paragraph{Graph Train Deg-1}\label{graph-train-deg-1}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}253}]:} \PY{n}{graph\PYZus{}plotter}\PY{p}{(}\PY{n}{X\PYZus{}2\PYZus{}train}\PY{p}{,}\PY{n}{weights\PYZus{}best\PYZus{}model\PYZus{}2}\PY{p}{,}\PY{n}{y\PYZus{}2\PYZus{}train}\PY{p}{,}\PY{n}{graph\PYZus{}label}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+No handles with labels found to put in legend.
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_103_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{fit-the-data-using-2nd-order-polynomial-regression-model-matrix-form-gradient-descent-method.}{%
+\subsection{2-2. Fit the data using 2nd order polynomial regression
+model (matrix form, gradient descent
+method).}\label{fit-the-data-using-2nd-order-polynomial-regression-model-matrix-form-gradient-descent-method.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}254}]:} \PY{n}{X\PYZus{}2\PYZus{}poly\PYZus{}d2\PYZus{}scaled\PYZus{}coloumn\PYZus{}added} \PY{o}{=} \PY{n}{polynomial\PYZus{}adder}\PY{p}{(}\PY{n}{X\PYZus{}2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}255}]:} \PY{n}{X\PYZus{}22\PYZus{}train\PYZus{}val}\PY{p}{,} \PY{n}{X\PYZus{}22\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}22\PYZus{}train\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}22\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X\PYZus{}2\PYZus{}poly\PYZus{}d2\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,} \PY{n}{Y\PYZus{}2}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{X\PYZus{}22\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}22\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}22\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}22\PYZus{}val} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X\PYZus{}22\PYZus{}train\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}22\PYZus{}train\PYZus{}val}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.25}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}256}]:} \PY{n}{best\PYZus{}model\PYZus{}22} \PY{o}{=} \PY{n}{train\PYZus{}val\PYZus{}best\PYZus{}model}\PY{p}{(}\PY{n}{X\PYZus{}22\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}22\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}22\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}22\PYZus{}val}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{weights\PYZus{}best\PYZus{}model\PYZus{}22} \PY{o}{=} \PY{n}{weight\PYZus{}optimizer}\PY{p}{(}\PY{n}{X\PYZus{}22\PYZus{}train}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{y\PYZus{}22\PYZus{}train}\PY{p}{,}\PY{n}{learn\PYZus{}rate} \PY{o}{=} \PY{n}{best\PYZus{}model\PYZus{}22} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{epochs} \PY{o}{=} \PY{n}{best\PYZus{}model\PYZus{}22} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{regularisation\PYZus{}alpha}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[(1, 254082.7389780978), (2, 244029.3535573043), (3, 244071.59635894437), (4, 244029.2686895008), (5, 244071.5963589144), (6, 244071.59635907054), (7, 244071.59635891087), (8, 244071.59635907042), (9, 244071.59635907054)]
+Epoch and Learning Rate Combination 4 (10000, 0.001)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_107_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{rmse---traintest-deg--2}{%
+\paragraph{RMSE - Train,test Deg -2}\label{rmse---traintest-deg--2}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}257}]:} \PY{n}{rmse\PYZus{}train\PYZus{}22} \PY{o}{=} \PY{n}{rmse\PYZus{}calculator}\PY{p}{(}\PY{n}{X\PYZus{}22\PYZus{}train}\PY{p}{,}\PY{n}{weights\PYZus{}best\PYZus{}model\PYZus{}22}\PY{p}{,}\PY{n}{y\PYZus{}22\PYZus{}train}\PY{p}{)}
+          \PY{n}{rmse\PYZus{}test\PYZus{}22} \PY{o}{=} \PY{n}{rmse\PYZus{}calculator}\PY{p}{(}\PY{n}{X\PYZus{}22\PYZus{}test}\PY{p}{,}\PY{n}{weights\PYZus{}best\PYZus{}model\PYZus{}22}\PY{p}{,}\PY{n}{y\PYZus{}22\PYZus{}test}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rmse\PYZus{}train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{rmse\PYZus{}train\PYZus{}22}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rmse\PYZus{}test}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{rmse\PYZus{}test\PYZus{}22}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+rmse\_train 267719.7117411374
+rmse\_test 254533.92847752557
+
+    \end{Verbatim}
+
+    \hypertarget{graph-train-deg-2}{%
+\paragraph{Graph Train Deg-2}\label{graph-train-deg-2}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}258}]:} \PY{n}{graph\PYZus{}plotter}\PY{p}{(}\PY{n}{X\PYZus{}22\PYZus{}train}\PY{p}{,}\PY{n}{weights\PYZus{}best\PYZus{}model\PYZus{}22}\PY{p}{,}\PY{n}{y\PYZus{}22\PYZus{}train}\PY{p}{,}\PY{n}{graph\PYZus{}label}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+No handles with labels found to put in legend.
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_111_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{fit-the-data-using-4th-order-polynomial-regression-model-matrix-form-gradient-descent-method.}{%
+\subsection{2-3. Fit the data using 4th order polynomial regression
+model (matrix form, gradient descent
+method).}\label{fit-the-data-using-4th-order-polynomial-regression-model-matrix-form-gradient-descent-method.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}259}]:} \PY{n}{X\PYZus{}2\PYZus{}poly\PYZus{}d4\PYZus{}scaled\PYZus{}coloumn\PYZus{}added} \PY{o}{=} \PY{n}{polynomial\PYZus{}adder}\PY{p}{(}\PY{n}{X\PYZus{}2}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}260}]:} \PY{n}{X\PYZus{}24\PYZus{}train\PYZus{}val}\PY{p}{,} \PY{n}{X\PYZus{}24\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}24\PYZus{}train\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}24\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X\PYZus{}2\PYZus{}poly\PYZus{}d4\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,} \PY{n}{Y\PYZus{}2}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{X\PYZus{}24\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}24\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}24\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}24\PYZus{}val} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X\PYZus{}24\PYZus{}train\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}24\PYZus{}train\PYZus{}val}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.25}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}261}]:} \PY{n}{best\PYZus{}model\PYZus{}24} \PY{o}{=} \PY{n}{train\PYZus{}val\PYZus{}best\PYZus{}model}\PY{p}{(}\PY{n}{X\PYZus{}24\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}24\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}24\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}24\PYZus{}val}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}
+          \PY{n}{weights\PYZus{}best\PYZus{}model\PYZus{}24} \PY{o}{=} \PY{n}{weight\PYZus{}optimizer}\PY{p}{(}\PY{n}{X\PYZus{}24\PYZus{}train}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{n}{y\PYZus{}24\PYZus{}train}\PY{p}{,}\PY{n}{learn\PYZus{}rate} \PY{o}{=} \PY{n}{best\PYZus{}model\PYZus{}24} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{epochs} \PY{o}{=} \PY{n}{best\PYZus{}model\PYZus{}24} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{regularisation\PYZus{}alpha}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[(1, 254205.33656847285), (2, 243001.66458493247), (3, 243544.8531816557), (4, 243001.8240493743), (5, 243544.6655575537), (6, 243854.6229242246), (7, 243544.64619277278), (8, 243854.612717776), (9, 244304.69676459354)]
+Epoch and Learning Rate Combination 2 (1000, 0.01)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_115_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{rmse---traintest-deg--4}{%
+\paragraph{RMSE - Train,test Deg -4}\label{rmse---traintest-deg--4}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}262}]:} \PY{n}{rmse\PYZus{}train\PYZus{}24} \PY{o}{=} \PY{n}{rmse\PYZus{}calculator}\PY{p}{(}\PY{n}{X\PYZus{}24\PYZus{}train}\PY{p}{,}\PY{n}{weights\PYZus{}best\PYZus{}model\PYZus{}24}\PY{p}{,}\PY{n}{y\PYZus{}24\PYZus{}train}\PY{p}{)}
+          \PY{n}{rmse\PYZus{}test\PYZus{}24} \PY{o}{=} \PY{n}{rmse\PYZus{}calculator}\PY{p}{(}\PY{n}{X\PYZus{}24\PYZus{}test}\PY{p}{,}\PY{n}{weights\PYZus{}best\PYZus{}model\PYZus{}24}\PY{p}{,}\PY{n}{y\PYZus{}24\PYZus{}test}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rmse\PYZus{}train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{rmse\PYZus{}train\PYZus{}24}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rmse\PYZus{}test}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{rmse\PYZus{}test\PYZus{}24}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+rmse\_train 260919.45768952757
+rmse\_test 251751.42950903866
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}263}]:} \PY{n}{graph\PYZus{}plotter}\PY{p}{(}\PY{n}{X\PYZus{}24\PYZus{}train}\PY{p}{,}\PY{n}{weights\PYZus{}best\PYZus{}model\PYZus{}24}\PY{p}{,}\PY{n}{y\PYZus{}24\PYZus{}train}\PY{p}{,}\PY{n}{graph\PYZus{}label}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+No handles with labels found to put in legend.
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_118_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{fit-the-data-using-16th-order-polynomial-regression-model-matrix-form-gradient-descent-method.}{%
+\subsection{2-4. Fit the data using 16th order polynomial regression
+model (matrix form, gradient descent
+method).}\label{fit-the-data-using-16th-order-polynomial-regression-model-matrix-form-gradient-descent-method.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}357}]:} \PY{k}{def} \PY{n+nf}{weight\PYZus{}optimizer\PYZus{}stoc\PYZus{}batch}\PY{p}{(}\PY{n}{data}\PY{p}{,}\PY{n}{degree}\PY{p}{,}\PY{n}{Label}\PY{p}{,}\PY{n}{learn\PYZus{}rate} \PY{o}{=} \PY{o}{.}\PY{l+m+mi}{01}\PY{p}{,}\PY{n}{epochs} \PY{o}{=} \PY{l+m+mi}{100000}\PY{p}{,}\PY{n}{regularisation\PYZus{}alpha}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+              \PY{n}{theta\PYZus{}1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{degree}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+              \PY{n}{data\PYZus{}size} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+              \PY{n+nb}{print} \PY{p}{(}\PY{n}{data\PYZus{}size}\PY{p}{)}
+              \PY{n}{batch\PYZus{}size} \PY{o}{=} \PY{n}{data\PYZus{}size} \PY{o}{/}\PY{o}{/} \PY{l+m+mi}{16}
+              \PY{n+nb}{print} \PY{p}{(}\PY{n}{batch\PYZus{}size}\PY{p}{)}
+              \PY{k}{for} \PY{n}{epoch} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{epochs}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{for} \PY{n}{batch} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{batch\PYZus{}size}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{X\PYZus{}batch}\PY{p}{,} \PY{n}{y\PYZus{}batch} \PY{o}{=} \PY{n}{resample}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{Label}\PY{p}{,} \PY{n}{n\PYZus{}samples}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{replace}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+                      \PY{n}{gradients} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{2}\PY{o}{/}\PY{n}{X\PYZus{}batch}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{*} \PY{p}{(}\PY{n}{X\PYZus{}batch}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X\PYZus{}batch}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{theta\PYZus{}1}\PY{p}{)}\PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}batch}\PY{p}{)}\PY{o}{+} \PYZbs{}
+                                                         \PY{n}{regularisation\PYZus{}alpha}\PY{o}{*}\PY{n}{theta\PYZus{}1}\PY{p}{)}
+                      \PY{n}{theta\PYZus{}1} \PY{o}{=} \PY{n}{theta\PYZus{}1} \PY{o}{\PYZhy{}} \PY{n}{learn\PYZus{}rate} \PY{o}{*} \PY{n}{gradients}
+              \PY{k}{return} \PY{n}{theta\PYZus{}1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}370}]:} \PY{k}{def} \PY{n+nf}{train\PYZus{}val\PYZus{}best\PYZus{}model\PYZus{}stoc\PYZus{}batch}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}val}\PY{p}{,}\PY{n}{degree}\PY{p}{)}\PY{p}{:}
+              \PY{n}{epochs} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{10000}\PY{p}{]}
+              \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{p}{[}\PY{o}{.}\PY{l+m+mi}{001}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{01}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{]}
+              \PY{n}{train\PYZus{}errors}\PY{p}{,} \PY{n}{val\PYZus{}errors} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}
+              \PY{n}{counter} \PY{o}{=} \PY{l+m+mi}{1}
+              \PY{n}{combination} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+              \PY{k}{for} \PY{n}{epoch} \PY{o+ow}{in} \PY{n}{epochs}\PY{p}{:}
+                  \PY{k}{for} \PY{n}{rate} \PY{o+ow}{in} \PY{n}{learning\PYZus{}rate}\PY{p}{:}
+                      \PY{n}{weights} \PY{o}{=} \PY{n}{weight\PYZus{}optimizer\PYZus{}stoc\PYZus{}batch}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{degree}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{learn\PYZus{}rate} \PY{o}{=} \PY{n}{rate}\PY{p}{,}\PY{n}{epochs} \PY{o}{=} \PY{n}{epoch}\PY{p}{,}\PY{n}{regularisation\PYZus{}alpha}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                      \PY{n}{rmse\PYZus{}train} \PY{o}{=} \PY{n}{rmse\PYZus{}calculator}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{weights}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}
+                      \PY{n}{rmse\PYZus{}val} \PY{o}{=} \PY{n}{rmse\PYZus{}calculator}\PY{p}{(}\PY{n}{X\PYZus{}val}\PY{p}{,}\PY{n}{weights}\PY{p}{,}\PY{n}{y\PYZus{}val}\PY{p}{)}
+                      \PY{n}{train\PYZus{}errors}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{rmse\PYZus{}train}\PY{p}{)}
+                      \PY{n}{val\PYZus{}errors}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{rmse\PYZus{}val}\PY{p}{)}
+                      \PY{n}{combination}\PY{p}{[}\PY{n}{counter}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{epoch}\PY{p}{,}\PY{n}{rate}\PY{p}{)}
+                      \PY{n}{counter} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{train\PYZus{}errors}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{r\PYZhy{}+}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{val\PYZus{}errors}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{val}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{legend} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{shadow}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{}\PYZsh{} Find the lowest validation error}
+              \PY{n}{counter\PYZus{}val\PYZus{}error} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{val\PYZus{}errors}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+              \PY{n}{counter\PYZus{}val\PYZus{}error\PYZus{}sorted} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{counter\PYZus{}val\PYZus{}error}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+              \PY{n}{best\PYZus{}model} \PY{o}{=} \PY{n}{combination}\PY{p}{[}\PY{p}{(}\PY{n}{counter\PYZus{}val\PYZus{}error\PYZus{}sorted}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{counter\PYZus{}val\PYZus{}error}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Epoch and Learning Rate Combination}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{counter\PYZus{}val\PYZus{}error\PYZus{}sorted}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{best\PYZus{}model}\PY{p}{)}
+              \PY{k}{return} \PY{n}{best\PYZus{}model}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}371}]:} \PY{n}{X\PYZus{}2\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added} \PY{o}{=} \PY{n}{polynomial\PYZus{}adder}\PY{p}{(}\PY{n}{X\PYZus{}2}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}372}]:} \PY{n}{X\PYZus{}216\PYZus{}train\PYZus{}val}\PY{p}{,} \PY{n}{X\PYZus{}216\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}216\PYZus{}train\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}216\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X\PYZus{}2\PYZus{}poly\PYZus{}d16\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,} \PY{n}{Y\PYZus{}2}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{X\PYZus{}216\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}216\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}216\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}216\PYZus{}val} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X\PYZus{}216\PYZus{}train\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}216\PYZus{}train\PYZus{}val}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.25}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{implemented-mini-batch-gradient-descent-as-i-was-getting-error-with-full-batch}{%
+\paragraph{Implemented Mini-batch Gradient Descent as I was getting
+error with full
+batch}\label{implemented-mini-batch-gradient-descent-as-i-was-getting-error-with-full-batch}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}373}]:} \PY{n}{best\PYZus{}model\PYZus{}216} \PY{o}{=} \PY{n}{train\PYZus{}val\PYZus{}best\PYZus{}model\PYZus{}stoc\PYZus{}batch}\PY{p}{(}\PY{n}{X\PYZus{}216\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}216\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}216\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}216\PYZus{}val}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{weights\PYZus{}best\PYZus{}model\PYZus{}216} \PY{o}{=} \PY{n}{weight\PYZus{}optimizer\PYZus{}stoc\PYZus{}batch}\PY{p}{(}\PY{n}{X\PYZus{}216\PYZus{}train}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{,}\PY{n}{y\PYZus{}216\PYZus{}train}\PY{p}{,}\PY{n}{learn\PYZus{}rate} \PY{o}{=} \PY{n}{best\PYZus{}model\PYZus{}216} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{epochs} \PY{o}{=} \PY{n}{best\PYZus{}model\PYZus{}216} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{regularisation\PYZus{}alpha}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+3242
+202
+3242
+202
+3242
+202
+[(1, 271431.84548393165), (2, 621086.9719878328), (3, 1715299.1157242693)]
+Epoch and Learning Rate Combination 1 (10000, 0.001)
+3242
+202
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_125_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}374}]:} \PY{n}{rmse\PYZus{}train\PYZus{}216} \PY{o}{=} \PY{n}{rmse\PYZus{}calculator}\PY{p}{(}\PY{n}{X\PYZus{}216\PYZus{}train}\PY{p}{,}\PY{n}{weights\PYZus{}best\PYZus{}model\PYZus{}216}\PY{p}{,}\PY{n}{y\PYZus{}216\PYZus{}train}\PY{p}{)}
+          \PY{n}{rmse\PYZus{}test\PYZus{}216} \PY{o}{=} \PY{n}{rmse\PYZus{}calculator}\PY{p}{(}\PY{n}{X\PYZus{}216\PYZus{}test}\PY{p}{,}\PY{n}{weights\PYZus{}best\PYZus{}model\PYZus{}216}\PY{p}{,}\PY{n}{y\PYZus{}216\PYZus{}test}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rmse\PYZus{}train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{rmse\PYZus{}train\PYZus{}216}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rmse\PYZus{}test}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{rmse\PYZus{}test\PYZus{}216}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+rmse\_train 656156.7479793766
+rmse\_test 274794.112255375
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}375}]:} \PY{n}{graph\PYZus{}plotter}\PY{p}{(}\PY{n}{X\PYZus{}216\PYZus{}train}\PY{p}{,}\PY{n}{weights\PYZus{}best\PYZus{}model\PYZus{}216}\PY{p}{,}\PY{n}{y\PYZus{}216\PYZus{}train}\PY{p}{,}\PY{n}{graph\PYZus{}label}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+WARNING:matplotlib.legend:No handles with labels found to put in legend.
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_127_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{fit-the-data-using-16th-order-polynomial-regression-model-with-ridge-l2-penalty-regularization.}{%
+\subsection{2-5. Fit the data using 16th order polynomial regression
+model with ridge (L2 penalty)
+regularization.}\label{fit-the-data-using-16th-order-polynomial-regression-model-with-ridge-l2-penalty-regularization.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}379}]:} \PY{k}{def} \PY{n+nf}{train\PYZus{}val\PYZus{}best\PYZus{}model\PYZus{}ridge\PYZus{}stoc\PYZus{}batch}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}val}\PY{p}{,}\PY{n}{degree}\PY{p}{)}\PY{p}{:}
+              \PY{n}{epochs} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{10000}\PY{p}{]}
+              \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{p}{[}\PY{o}{.}\PY{l+m+mi}{01}\PY{p}{]}
+              \PY{n}{regularisation\PYZus{}alpa} \PY{o}{=} \PY{p}{[}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{]}
+              \PY{n}{train\PYZus{}errors}\PY{p}{,} \PY{n}{val\PYZus{}errors} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}
+              \PY{n}{counter} \PY{o}{=} \PY{l+m+mi}{1}
+              \PY{n}{combination} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+              \PY{k}{for} \PY{n}{epoch} \PY{o+ow}{in} \PY{n}{epochs}\PY{p}{:}
+                  \PY{k}{for} \PY{n}{rate} \PY{o+ow}{in} \PY{n}{learning\PYZus{}rate}\PY{p}{:}
+                      \PY{k}{for} \PY{n}{alpha} \PY{o+ow}{in} \PY{n}{regularisation\PYZus{}alpa}\PY{p}{:}
+                          \PY{n}{weights} \PY{o}{=} \PY{n}{weight\PYZus{}optimizer\PYZus{}stoc\PYZus{}batch}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{degree}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{learn\PYZus{}rate} \PY{o}{=} \PY{n}{rate}\PY{p}{,}\PY{n}{epochs} \PY{o}{=} \PY{n}{epoch}\PY{p}{,} \PYZbs{}
+                                                     \PY{n}{regularisation\PYZus{}alpha}\PY{o}{=}\PY{n}{alpha}\PY{p}{)}
+                          \PY{n}{rmse\PYZus{}train} \PY{o}{=} \PY{n}{rmse\PYZus{}calculator}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{weights}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}
+                          \PY{n}{rmse\PYZus{}val} \PY{o}{=} \PY{n}{rmse\PYZus{}calculator}\PY{p}{(}\PY{n}{X\PYZus{}val}\PY{p}{,}\PY{n}{weights}\PY{p}{,}\PY{n}{y\PYZus{}val}\PY{p}{)}
+                          \PY{n}{train\PYZus{}errors}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{rmse\PYZus{}train}\PY{p}{)}
+                          \PY{n}{val\PYZus{}errors}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{rmse\PYZus{}val}\PY{p}{)}
+                          \PY{n}{combination}\PY{p}{[}\PY{n}{counter}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{epoch}\PY{p}{,}\PY{n}{rate}\PY{p}{,}\PY{n}{alpha}\PY{p}{)}
+                          \PY{n}{counter} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{train\PYZus{}errors}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{r\PYZhy{}+}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{val\PYZus{}errors}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{val}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{legend} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{shadow}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{}\PYZsh{} Find the lowest validation error}
+              \PY{n}{counter\PYZus{}val\PYZus{}error} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{val\PYZus{}errors}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+              \PY{n}{counter\PYZus{}val\PYZus{}error\PYZus{}sorted} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{counter\PYZus{}val\PYZus{}error}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+              \PY{n}{best\PYZus{}model} \PY{o}{=} \PY{n}{combination}\PY{p}{[}\PY{p}{(}\PY{n}{counter\PYZus{}val\PYZus{}error\PYZus{}sorted}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{best\PYZus{}model}\PY{p}{)}
+              \PY{k}{return} \PY{n}{best\PYZus{}model}
+\end{Verbatim}
+
+
+    \hypertarget{implemented-mini-batch-gradient-descent-as-i-was-getting-error-with-full-batch}{%
+\paragraph{Implemented Mini-batch Gradient Descent as I was getting
+error with full
+batch}\label{implemented-mini-batch-gradient-descent-as-i-was-getting-error-with-full-batch}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}380}]:} \PY{n}{best\PYZus{}model\PYZus{}216\PYZus{}ridge} \PY{o}{=} \PY{n}{train\PYZus{}val\PYZus{}best\PYZus{}model\PYZus{}ridge\PYZus{}stoc\PYZus{}batch}\PY{p}{(}\PY{n}{X\PYZus{}216\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}216\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}216\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}216\PYZus{}val}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{)}
+          \PY{n}{weights\PYZus{}best\PYZus{}model\PYZus{}216\PYZus{}ridge} \PY{o}{=} \PY{n}{weight\PYZus{}optimizer\PYZus{}stoc\PYZus{}batch}\PY{p}{(}\PY{n}{X\PYZus{}216\PYZus{}train}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{,}\PY{n}{y\PYZus{}216\PYZus{}train}\PY{p}{,}\PY{n}{learn\PYZus{}rate} \PY{o}{=} \PY{n}{best\PYZus{}model\PYZus{}216\PYZus{}ridge} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{epochs} \PY{o}{=} \PY{n}{best\PYZus{}model\PYZus{}216\PYZus{}ridge} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{regularisation\PYZus{}alpha}\PY{o}{=}\PY{n}{best\PYZus{}model\PYZus{}216\PYZus{}ridge} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+3242
+202
+3242
+202
+3242
+202
+(10000, 0.01, 0.1)
+3242
+202
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_131_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}383}]:} \PY{n}{rmse\PYZus{}train\PYZus{}216\PYZus{}ridge} \PY{o}{=} \PY{n}{rmse\PYZus{}calculator}\PY{p}{(}\PY{n}{X\PYZus{}216\PYZus{}train}\PY{p}{,}\PY{n}{weights\PYZus{}best\PYZus{}model\PYZus{}216\PYZus{}ridge}\PY{p}{,}\PY{n}{y\PYZus{}216\PYZus{}train}\PY{p}{)}
+          \PY{n}{rmse\PYZus{}test\PYZus{}216\PYZus{}ridge} \PY{o}{=} \PY{n}{rmse\PYZus{}calculator}\PY{p}{(}\PY{n}{X\PYZus{}216\PYZus{}test}\PY{p}{,}\PY{n}{weights\PYZus{}best\PYZus{}model\PYZus{}216\PYZus{}ridge}\PY{p}{,}\PY{n}{y\PYZus{}216\PYZus{}test}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rmse\PYZus{}train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{rmse\PYZus{}train\PYZus{}216\PYZus{}ridge}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rmse\PYZus{}test}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{rmse\PYZus{}test\PYZus{}216\PYZus{}ridge}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+rmse\_train 415963.5773494703
+rmse\_test 321415.22175827075
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}385}]:} \PY{n}{graph\PYZus{}plotter}\PY{p}{(}\PY{n}{X\PYZus{}216\PYZus{}train}\PY{p}{,}\PY{n}{weights\PYZus{}best\PYZus{}model\PYZus{}216\PYZus{}ridge}\PY{p}{,}\PY{n}{y\PYZus{}216\PYZus{}train}\PY{p}{,}\PY{n}{graph\PYZus{}label}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+WARNING:matplotlib.legend:No handles with labels found to put in legend.
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_133_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{fit-the-data-using-16th-order-polynomial-regression-model-with-scikit-learn-ridge-model.}{%
+\subsection{2-6. Fit the data using 16th order polynomial regression
+model with scikit-learn Ridge
+model.}\label{fit-the-data-using-16th-order-polynomial-regression-model-with-scikit-learn-ridge-model.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}268}]:} \PY{k}{def} \PY{n+nf}{train\PYZus{}val\PYZus{}best\PYZus{}model\PYZus{}scikit\PYZus{}ridge}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}val}\PY{p}{)}\PY{p}{:}
+              \PY{n}{regularisation\PYZus{}alpa} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{]} 
+              \PY{n}{train\PYZus{}errors}\PY{p}{,} \PY{n}{val\PYZus{}errors} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}
+              \PY{n}{counter} \PY{o}{=} \PY{l+m+mi}{1}
+              \PY{n}{combination} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+              \PY{k}{for} \PY{n}{alpha} \PY{o+ow}{in} \PY{n}{regularisation\PYZus{}alpa}\PY{p}{:}
+                  \PY{n}{ridge\PYZus{}model} \PY{o}{=} \PY{n}{ridge\PYZus{}optimized\PYZus{}weight}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{alpha}\PY{p}{)}
+                  \PY{n}{rmse\PYZus{}train} \PY{o}{=} \PY{n}{ridge\PYZus{}lasso\PYZus{}rmse}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{ridge\PYZus{}model}\PY{p}{)}
+                  \PY{n}{rmse\PYZus{}val} \PY{o}{=} \PY{n}{ridge\PYZus{}lasso\PYZus{}rmse}\PY{p}{(}\PY{n}{X\PYZus{}val}\PY{p}{,}\PY{n}{y\PYZus{}val}\PY{p}{,}\PY{n}{ridge\PYZus{}model}\PY{p}{)}
+                  \PY{n}{train\PYZus{}errors}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{rmse\PYZus{}train}\PY{p}{)}
+                  \PY{n}{val\PYZus{}errors}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{rmse\PYZus{}val}\PY{p}{)}
+                  \PY{n}{combination}\PY{p}{[}\PY{n}{counter}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{alpha}\PY{p}{,}\PY{n}{ridge\PYZus{}model}\PY{p}{)}
+                  \PY{n}{counter} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{train\PYZus{}errors}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{r\PYZhy{}+}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{val\PYZus{}errors}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{val}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{legend} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{shadow}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{}\PYZsh{} Find the lowest validation error}
+              \PY{n}{counter\PYZus{}val\PYZus{}error} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{val\PYZus{}errors}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+              \PY{n}{counter\PYZus{}val\PYZus{}error\PYZus{}sorted} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{counter\PYZus{}val\PYZus{}error}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+              \PY{n}{best\PYZus{}model} \PY{o}{=} \PY{n}{combination}\PY{p}{[}\PY{p}{(}\PY{n}{counter\PYZus{}val\PYZus{}error\PYZus{}sorted}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{alpha}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{best\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+              \PY{k}{return} \PY{n}{best\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}269}]:} \PY{n}{best\PYZus{}model\PYZus{}216\PYZus{}scikit\PYZus{}ridge} \PY{o}{=} \PY{n}{train\PYZus{}val\PYZus{}best\PYZus{}model\PYZus{}scikit\PYZus{}ridge}\PY{p}{(}\PY{n}{X\PYZus{}216\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}216\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}216\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}216\PYZus{}val}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model-Intercept [547704.506878]
+Model-Co-ef [[  47149.02303585]
+ [  97806.15914125]
+ [ 494262.89050946]
+ [-227237.60901432]
+ [-422132.21976636]
+ [-199882.87630559]
+ [  64994.59063826]
+ [ 230729.38940244]
+ [ 287757.59283936]
+ [ 265072.70818138]
+ [ 193352.45983527]
+ [  95486.86500499]
+ [ -13592.57195474]
+ [-124860.40617845]
+ [-233169.41195629]
+ [-335762.59926058]]
+Model-Intercept [547718.99272249]
+Model-Co-ef [[ -16344.34115262]
+ [ 320155.60757134]
+ [ 172666.68142153]
+ [-173831.65937522]
+ [-211992.23283438]
+ [ -77256.72585303]
+ [  64972.77614043]
+ [ 152621.76687899]
+ [ 180680.13409481]
+ [ 162984.49861422]
+ [ 115562.95467406]
+ [  51361.29686543]
+ [ -20522.80095625]
+ [ -94191.55415056]
+ [-166059.86068628]
+ [-234099.56514392]]
+Model-Intercept [547547.03238267]
+Model-Co-ef [[  36166.43778387]
+ [ 269023.40114305]
+ [  77631.40011951]
+ [ -81988.69738317]
+ [ -71553.92749472]
+ [  -5369.60495591]
+ [  48807.03808062]
+ [  74843.22643076]
+ [  76275.4587262 ]
+ [  60869.18534266]
+ [  35528.32733298]
+ [   5236.22544228]
+ [ -26747.06366153]
+ [ -58427.80688802]
+ [ -88665.61666554]
+ [-116867.58253742]]
+alpha 1
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_136_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}270}]:} \PY{n}{rmse\PYZus{}train\PYZus{}216\PYZus{}scikit\PYZus{}ridge} \PY{o}{=} \PY{n}{ridge\PYZus{}lasso\PYZus{}rmse}\PY{p}{(}\PY{n}{X\PYZus{}216\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}216\PYZus{}train}\PY{p}{,}\PY{n}{best\PYZus{}model\PYZus{}216\PYZus{}scikit\PYZus{}ridge}\PY{p}{)}
+          \PY{n}{rmse\PYZus{}test\PYZus{}216\PYZus{}scikit\PYZus{}ridge} \PY{o}{=} \PY{n}{ridge\PYZus{}lasso\PYZus{}rmse}\PY{p}{(}\PY{n}{X\PYZus{}216\PYZus{}test}\PY{p}{,}\PY{n}{y\PYZus{}216\PYZus{}test}\PY{p}{,}\PY{n}{best\PYZus{}model\PYZus{}216\PYZus{}scikit\PYZus{}ridge}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rmse\PYZus{}train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{rmse\PYZus{}train\PYZus{}216\PYZus{}scikit\PYZus{}ridge}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rmse\PYZus{}test}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{rmse\PYZus{}test\PYZus{}216\PYZus{}scikit\PYZus{}ridge}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+rmse\_train 250700.05033093243
+rmse\_test 251065.74316573926
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}271}]:} \PY{n}{ridge\PYZus{}lasso\PYZus{}graph\PYZus{}plotter}\PY{p}{(}\PY{n}{X\PYZus{}216\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}216\PYZus{}train}\PY{p}{,}\PY{n}{best\PYZus{}model\PYZus{}216\PYZus{}scikit\PYZus{}ridge}\PY{p}{,}\PY{n}{graph\PYZus{}label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{λ = 1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_138_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{fit-the-data-using-16th-order-polynomial-regression-model-with-scikit-learn-lasso-model.}{%
+\subsection{2-7. Fit the data using 16th order polynomial regression
+model with scikit-learn Lasso
+model.}\label{fit-the-data-using-16th-order-polynomial-regression-model-with-scikit-learn-lasso-model.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}272}]:} \PY{k}{def} \PY{n+nf}{train\PYZus{}val\PYZus{}best\PYZus{}model\PYZus{}scikit\PYZus{}lasso}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}val}\PY{p}{)}\PY{p}{:}
+              \PY{n}{regularisation\PYZus{}alpa} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{]} 
+              \PY{n}{train\PYZus{}errors}\PY{p}{,} \PY{n}{val\PYZus{}errors} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}
+              \PY{n}{counter} \PY{o}{=} \PY{l+m+mi}{1}
+              \PY{n}{combination} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+              \PY{k}{for} \PY{n}{alpha} \PY{o+ow}{in} \PY{n}{regularisation\PYZus{}alpa}\PY{p}{:}
+                  \PY{n}{lasso\PYZus{}model} \PY{o}{=} \PY{n}{lasso\PYZus{}optimized\PYZus{}weight}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{alpha}\PY{p}{)}
+                  \PY{n}{rmse\PYZus{}train} \PY{o}{=} \PY{n}{ridge\PYZus{}lasso\PYZus{}rmse}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{lasso\PYZus{}model}\PY{p}{)}
+                  \PY{n}{rmse\PYZus{}val} \PY{o}{=} \PY{n}{ridge\PYZus{}lasso\PYZus{}rmse}\PY{p}{(}\PY{n}{X\PYZus{}val}\PY{p}{,}\PY{n}{y\PYZus{}val}\PY{p}{,}\PY{n}{lasso\PYZus{}model}\PY{p}{)}
+                  \PY{n}{train\PYZus{}errors}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{rmse\PYZus{}train}\PY{p}{)}
+                  \PY{n}{val\PYZus{}errors}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{rmse\PYZus{}val}\PY{p}{)}
+                  \PY{n}{combination}\PY{p}{[}\PY{n}{counter}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{alpha}\PY{p}{,}\PY{n}{lasso\PYZus{}model}\PY{p}{)}
+                  \PY{n}{counter} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{train\PYZus{}errors}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{r\PYZhy{}+}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{val\PYZus{}errors}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{val}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{legend} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{shadow}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{}\PYZsh{} Find the lowest validation error}
+              \PY{n}{counter\PYZus{}val\PYZus{}error} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{val\PYZus{}errors}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+              \PY{n}{counter\PYZus{}val\PYZus{}error\PYZus{}sorted} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{counter\PYZus{}val\PYZus{}error}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+              \PY{n}{best\PYZus{}model} \PY{o}{=} \PY{n}{combination}\PY{p}{[}\PY{p}{(}\PY{n}{counter\PYZus{}val\PYZus{}error\PYZus{}sorted}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{alpha}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{best\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+              \PY{k}{return} \PY{n}{best\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}273}]:} \PY{n}{best\PYZus{}model\PYZus{}216\PYZus{}scikit\PYZus{}lasso} \PY{o}{=} \PY{n}{train\PYZus{}val\PYZus{}best\PYZus{}model\PYZus{}scikit\PYZus{}lasso}\PY{p}{(}\PY{n}{X\PYZus{}216\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}216\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}216\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}216\PYZus{}val}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda2/envs/carnd-term1/lib/python3.5/site-packages/sklearn/linear\_model/coordinate\_descent.py:491: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations. Fitting data with very small alpha may cause precision problems.
+  ConvergenceWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model-Intercept [547780.08000696]
+Model-Co-ef [-125318.97003623  666197.50707237 -261841.01303223 -187309.44448817
+   77160.31260774  155957.01757717  125786.49836694   69160.91493416
+   19708.08956119  -14840.20562329  -36093.17315681  -47445.45636661
+  -52259.47895543  -52993.40874272  -51325.09359054  -48343.58909978]
+Model-Intercept [547779.73592156]
+Model-Co-ef [-124992.36217718  665263.70260852 -260753.01353071 -187340.17063375
+   76345.133887    155967.41656718  125762.63818031   69164.76212111
+   19900.84319741  -14276.41829556  -36175.49317507  -47521.03245514
+  -52327.97275879  -53055.02152518  -51380.27127648  -48392.87104231]
+Model-Intercept [547776.26865725]
+Model-Co-ef [-121721.55990706  655932.64030426 -249919.8823818  -187602.71597435
+   68214.49580173  156107.22185177  125530.49711011   69166.91275706
+   21367.94806767   -8139.49732978  -37011.24562008  -48290.1479555
+  -53026.14960449  -53683.77064736  -51943.80255891  -48896.47767207]
+alpha 0.1
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_141_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}274}]:} \PY{n}{rmse\PYZus{}train\PYZus{}216\PYZus{}scikit\PYZus{}lasso} \PY{o}{=} \PY{n}{ridge\PYZus{}lasso\PYZus{}rmse}\PY{p}{(}\PY{n}{X\PYZus{}216\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}216\PYZus{}train}\PY{p}{,}\PY{n}{best\PYZus{}model\PYZus{}216\PYZus{}scikit\PYZus{}lasso}\PY{p}{)}
+          \PY{n}{rmse\PYZus{}test\PYZus{}216\PYZus{}scikit\PYZus{}lasso} \PY{o}{=} \PY{n}{ridge\PYZus{}lasso\PYZus{}rmse}\PY{p}{(}\PY{n}{X\PYZus{}216\PYZus{}test}\PY{p}{,}\PY{n}{y\PYZus{}216\PYZus{}test}\PY{p}{,}\PY{n}{best\PYZus{}model\PYZus{}216\PYZus{}scikit\PYZus{}lasso}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rmse\PYZus{}train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{rmse\PYZus{}train\PYZus{}216\PYZus{}scikit\PYZus{}lasso}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rmse\PYZus{}test}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{rmse\PYZus{}test\PYZus{}216\PYZus{}scikit\PYZus{}lasso}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+rmse\_train 251063.94309086326
+rmse\_test 250161.4085909059
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}275}]:} \PY{n}{ridge\PYZus{}lasso\PYZus{}graph\PYZus{}plotter}\PY{p}{(}\PY{n}{X\PYZus{}216\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}216\PYZus{}train}\PY{p}{,}\PY{n}{best\PYZus{}model\PYZus{}216\PYZus{}scikit\PYZus{}lasso}\PY{p}{,}\PY{n}{graph\PYZus{}label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{λ = .1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_143_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{fit-the-training-data-using-regression-model-with-ridge-l2-penalty-regularization-with-scikit-learn-ridge-model.}{%
+\subsection{3-1. Fit the training data using regression model with ridge
+(L2 penalty) regularization with scikit-learn Ridge
+model.}\label{fit-the-training-data-using-regression-model-with-ridge-l2-penalty-regularization-with-scikit-learn-ridge-model.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}276}]:} \PY{n}{data3} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ex2data3.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{k}{del} \PY{n}{data3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}277}]:} \PY{n}{X\PYZus{}3} \PY{o}{=} \PY{n}{data3}\PY{o}{.}\PY{n}{as\PYZus{}matrix}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{n}{data3}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{)}
+          \PY{n}{Y\PYZus{}3} \PY{o}{=} \PY{n}{data3}\PY{o}{.}\PY{n}{as\PYZus{}matrix}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{n}{data3}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{8}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+          \PY{n}{X\PYZus{}3\PYZus{}scaled} \PY{o}{=} \PY{n}{scaler}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X\PYZus{}3}\PY{p}{)}
+          \PY{n}{X\PYZus{}3\PYZus{}scaled\PYZus{}coloumn\PYZus{}added} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{c\PYZus{}}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{data3}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{X\PYZus{}3\PYZus{}scaled}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}278}]:} \PY{n}{X\PYZus{}3\PYZus{}train\PYZus{}val}\PY{p}{,} \PY{n}{X\PYZus{}3\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}3\PYZus{}train\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}3\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X\PYZus{}3\PYZus{}scaled\PYZus{}coloumn\PYZus{}added}\PY{p}{,} \PY{n}{Y\PYZus{}3}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{X\PYZus{}3\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}3\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}3\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}3\PYZus{}val} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X\PYZus{}3\PYZus{}train\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}3\PYZus{}train\PYZus{}val}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.25}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}279}]:} \PY{n}{best\PYZus{}model\PYZus{}3\PYZus{}scikit\PYZus{}ridge} \PY{o}{=} \PY{n}{train\PYZus{}val\PYZus{}best\PYZus{}model\PYZus{}scikit\PYZus{}ridge}\PY{p}{(}\PY{n}{X\PYZus{}3\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}3\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}3\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}3\PYZus{}val}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model-Intercept [2.07192364]
+Model-Co-ef [[ 0.82501033]
+ [ 0.12438917]
+ [-0.23245061]
+ [ 0.2778601 ]
+ [-0.00178963]
+ [-0.03738571]
+ [-0.9098153 ]
+ [-0.88498937]]
+Model-Intercept [2.07192619]
+Model-Co-ef [[ 0.82499755]
+ [ 0.12448827]
+ [-0.23231252]
+ [ 0.27766071]
+ [-0.0017563 ]
+ [-0.03738623]
+ [-0.90885179]
+ [-0.88401781]]
+Model-Intercept [2.07195156]
+Model-Co-ef [[ 0.82484941]
+ [ 0.12546401]
+ [-0.23091504]
+ [ 0.27566139]
+ [-0.00142815]
+ [-0.03739063]
+ [-0.89934824]
+ [-0.87443278]]
+alpha 0.1
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_148_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}280}]:} \PY{n}{rmse\PYZus{}train\PYZus{}3\PYZus{}scikit\PYZus{}ridge} \PY{o}{=} \PY{n}{ridge\PYZus{}lasso\PYZus{}rmse}\PY{p}{(}\PY{n}{X\PYZus{}3\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}3\PYZus{}train}\PY{p}{,}\PY{n}{best\PYZus{}model\PYZus{}3\PYZus{}scikit\PYZus{}ridge}\PY{p}{)}
+          \PY{n}{rmse\PYZus{}test\PYZus{}3\PYZus{}scikit\PYZus{}ridge} \PY{o}{=} \PY{n}{ridge\PYZus{}lasso\PYZus{}rmse}\PY{p}{(}\PY{n}{X\PYZus{}3\PYZus{}test}\PY{p}{,}\PY{n}{y\PYZus{}3\PYZus{}test}\PY{p}{,}\PY{n}{best\PYZus{}model\PYZus{}3\PYZus{}scikit\PYZus{}ridge}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rmse\PYZus{}train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{rmse\PYZus{}train\PYZus{}3\PYZus{}scikit\PYZus{}ridge}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rmse\PYZus{}test}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{rmse\PYZus{}test\PYZus{}3\PYZus{}scikit\PYZus{}ridge}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+rmse\_train 0.7274577804827311
+rmse\_test 0.7276608037847032
+
+    \end{Verbatim}
+
+    \hypertarget{fit-the-training-data-using-regression-model-with-lasso-l1-penalty-regularization-with-scikit-learn-lasso-model.}{%
+\subsection{3-2. Fit the training data using regression model with lasso
+(L1 penalty) regularization with scikit-learn Lasso
+model.}\label{fit-the-training-data-using-regression-model-with-lasso-l1-penalty-regularization-with-scikit-learn-lasso-model.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}281}]:} \PY{n}{best\PYZus{}model\PYZus{}3\PYZus{}scikit\PYZus{}lasso} \PY{o}{=} \PY{n}{train\PYZus{}val\PYZus{}best\PYZus{}model\PYZus{}scikit\PYZus{}lasso}\PY{p}{(}\PY{n}{X\PYZus{}3\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}3\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}3\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}3\PYZus{}val}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model-Intercept [2.07432847]
+Model-Co-ef [ 0.71386457  0.11001596 -0.          0.         -0.         -0.
+ -0.00645422 -0.        ]
+Model-Intercept [2.07444727]
+Model-Co-ef [ 0.  0.  0. -0. -0. -0. -0. -0.]
+Model-Intercept [2.07444727]
+Model-Co-ef [ 0.  0.  0. -0. -0. -0. -0. -0.]
+alpha 0.1
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_151_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}282}]:} \PY{n}{rmse\PYZus{}train\PYZus{}3\PYZus{}scikit\PYZus{}lasso} \PY{o}{=} \PY{n}{ridge\PYZus{}lasso\PYZus{}rmse}\PY{p}{(}\PY{n}{X\PYZus{}3\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}3\PYZus{}train}\PY{p}{,}\PY{n}{best\PYZus{}model\PYZus{}3\PYZus{}scikit\PYZus{}lasso}\PY{p}{)}
+          \PY{n}{rmse\PYZus{}test\PYZus{}3\PYZus{}scikit\PYZus{}lasso} \PY{o}{=} \PY{n}{ridge\PYZus{}lasso\PYZus{}rmse}\PY{p}{(}\PY{n}{X\PYZus{}3\PYZus{}test}\PY{p}{,}\PY{n}{y\PYZus{}3\PYZus{}test}\PY{p}{,}\PY{n}{best\PYZus{}model\PYZus{}3\PYZus{}scikit\PYZus{}lasso}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rmse\PYZus{}train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{rmse\PYZus{}train\PYZus{}3\PYZus{}scikit\PYZus{}lasso}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rmse\PYZus{}test}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{rmse\PYZus{}test\PYZus{}3\PYZus{}scikit\PYZus{}lasso}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+rmse\_train 0.8239579515519808
+rmse\_test 0.8147268457966831
+
+    \end{Verbatim}
+
+    \hypertarget{fit-the-training-data-using-regression-model-with-ridge-l2-penalty-regularization-using-tensorflow.}{%
+\subsection{3-3. Fit the training data using regression model with ridge
+(L2 penalty) regularization using
+TensorFlow.}\label{fit-the-training-data-using-regression-model-with-ridge-l2-penalty-regularization-using-tensorflow.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}345}]:} \PY{n}{epochs\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{10000}\PY{p}{]}
+          \PY{n}{alpha\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{]}
+          \PY{n}{learning\PYZus{}rate\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{o}{.}\PY{l+m+mi}{001}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{01}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}n\PYZus{}epochs = 10000}
+          \PY{c+c1}{\PYZsh{}learning\PYZus{}rate = 0.01}
+          \PY{c+c1}{\PYZsh{}alpha = 0.1}
+          
+          \PY{n}{tf}\PY{o}{.}\PY{n}{reset\PYZus{}default\PYZus{}graph}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{X\PYZus{}3} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{float64}\PY{p}{)}
+          \PY{n}{Y\PYZus{}3} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{float64}\PY{p}{)}
+          \PY{n}{theta} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{random\PYZus{}uniform}\PY{p}{(}\PY{p}{[}\PY{n}{data3}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{float64}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{theta}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+          \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{dtype}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{float64}\PY{p}{)}
+          \PY{n}{alpha} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{dtype}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{float64}\PY{p}{)}
+          \PY{n}{train\PYZus{}errors} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{val\PYZus{}errors} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{n}{counter} \PY{o}{=} \PY{l+m+mi}{1}
+          \PY{n}{combination} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+          
+          
+          \PY{n}{y\PYZus{}pred\PYZus{}3} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{X\PYZus{}3}\PY{p}{,} \PY{n}{theta}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{predictions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{error} \PY{o}{=} \PY{n}{y\PYZus{}pred\PYZus{}3} \PY{o}{\PYZhy{}} \PY{n}{Y\PYZus{}3}
+          \PY{n}{mse} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}mean}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{square}\PY{p}{(}\PY{n}{error}\PY{p}{)}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mse}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+          \PY{n}{gradients} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{/}\PY{n}{tf}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{n}{X\PYZus{}3}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{n}{X\PYZus{}3}\PY{p}{)}\PY{p}{,} \PY{n}{error}\PY{p}{)}\PY{o}{+}\PY{n}{alpha}\PY{o}{*}\PY{n}{theta}\PY{p}{)}
+          \PY{n}{training\PYZus{}op} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{assign}\PY{p}{(}\PY{n}{theta}\PY{p}{,} \PY{n}{theta} \PY{o}{\PYZhy{}} \PY{n}{learning\PYZus{}rate} \PY{o}{*} \PY{n}{gradients}\PY{p}{)}
+          
+          \PY{n}{init} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{global\PYZus{}variables\PYZus{}initializer}\PY{p}{(}\PY{p}{)}
+          
+          \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+              \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{init}\PY{p}{)}
+              \PY{k}{for} \PY{n}{n\PYZus{}epochs} \PY{o+ow}{in} \PY{n}{epochs\PYZus{}list}\PY{p}{:}
+                  \PY{k}{for} \PY{n}{alpha\PYZus{}value} \PY{o+ow}{in} \PY{n}{alpha\PYZus{}list}\PY{p}{:}
+                      \PY{k}{for} \PY{n}{learning\PYZus{}rate\PYZus{}value} \PY{o+ow}{in} \PY{n}{learning\PYZus{}rate\PYZus{}list}\PY{p}{:}
+                              \PY{k}{for} \PY{n}{epoch} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}epochs}\PY{p}{)}\PY{p}{:}
+                                          \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{training\PYZus{}op}\PY{p}{,}\PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{X\PYZus{}3}\PY{p}{:} \PY{n}{X\PYZus{}3\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}3}\PY{p}{:} \PY{n}{y\PYZus{}3\PYZus{}train}\PY{p}{,} \PYZbs{}
+                                                                          \PY{n}{learning\PYZus{}rate}\PY{p}{:} \PY{n}{learning\PYZus{}rate\PYZus{}value}\PY{p}{,}\PY{n}{alpha}\PY{p}{:} \PY{n}{alpha\PYZus{}value}\PY{p}{\PYZcb{}}\PY{p}{)}
+                              \PY{n}{train\PYZus{}errors}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{mse}\PY{p}{,}\PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{X\PYZus{}3}\PY{p}{:} \PY{n}{X\PYZus{}3\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}3}\PY{p}{:} \PY{n}{y\PYZus{}3\PYZus{}train}\PY{p}{,} \PYZbs{}
+                                                                         \PY{n}{learning\PYZus{}rate}\PY{p}{:} \PY{n}{learning\PYZus{}rate\PYZus{}value}\PY{p}{,}\PY{n}{alpha}\PY{p}{:} \PY{n}{alpha\PYZus{}value}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+                              \PY{n}{val\PYZus{}errors}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{mse}\PY{p}{,}\PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{X\PYZus{}3}\PY{p}{:} \PY{n}{X\PYZus{}3\PYZus{}val}\PY{p}{,} \PY{n}{Y\PYZus{}3}\PY{p}{:} \PY{n}{y\PYZus{}3\PYZus{}val}\PY{p}{,} \PYZbs{}
+                                                                       \PY{n}{learning\PYZus{}rate}\PY{p}{:} \PY{n}{learning\PYZus{}rate\PYZus{}value}\PY{p}{,}\PY{n}{alpha}\PY{p}{:} \PY{n}{alpha\PYZus{}value}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+                              \PY{n}{combination}\PY{p}{[}\PY{n}{counter}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{n\PYZus{}epochs}\PY{p}{,}\PY{n}{learning\PYZus{}rate\PYZus{}value}\PY{p}{,}\PY{n}{alpha\PYZus{}value}\PY{p}{)}
+                              \PY{n}{counter} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                  \PY{c+c1}{\PYZsh{}\PYZsh{} Find the lowest validation error}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{train\PYZus{}errors}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{r\PYZhy{}+}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{val\PYZus{}errors}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{val}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{legend} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{shadow}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+              \PY{n}{counter\PYZus{}val\PYZus{}error} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{val\PYZus{}errors}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+              \PY{n}{counter\PYZus{}val\PYZus{}error\PYZus{}sorted} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{counter\PYZus{}val\PYZus{}error}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+              \PY{n}{best\PYZus{}model} \PY{o}{=} \PY{n}{combination}\PY{p}{[}\PY{p}{(}\PY{n}{counter\PYZus{}val\PYZus{}error\PYZus{}sorted}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{counter\PYZus{}val\PYZus{}error}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Epoch ,Learning Rate and alpha Combination}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{best\PYZus{}model}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{}\PYZsh{}print train,test error}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train\PYZus{}error}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{mse}\PY{p}{,}\PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{X\PYZus{}3}\PY{p}{:} \PY{n}{X\PYZus{}3\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}3}\PY{p}{:} \PY{n}{y\PYZus{}3\PYZus{}train}\PY{p}{,} \PYZbs{}
+                                                                         \PY{n}{learning\PYZus{}rate}\PY{p}{:} \PY{n}{best\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{alpha}\PY{p}{:} \PY{n}{best\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test\PYZus{}error}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{mse}\PY{p}{,}\PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{X\PYZus{}3}\PY{p}{:} \PY{n}{X\PYZus{}3\PYZus{}test}\PY{p}{,} \PY{n}{Y\PYZus{}3}\PY{p}{:} \PY{n}{y\PYZus{}3\PYZus{}test}\PY{p}{,} \PYZbs{}
+                                                                     \PY{n}{learning\PYZus{}rate}\PY{p}{:} \PY{n}{best\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{alpha}\PY{p}{:} \PY{n}{best\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+          
+              
+          
+              
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[(1, 0.712454827014997), (2, 0.7112967432688554), (3, 0.7112968182739148), (4, 0.7113039267849257), (5, 0.711304166648072), (6, 0.7113041664887844), (7, 0.7113825753435046), (8, 0.7113889004585454), (9, 0.7113888992949285)]
+Epoch ,Learning Rate and alpha Combination (10000, 0.01, 0.1)
+train\_error 0.7274706274995454
+test\_error 0.7275337175750082
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Exception ignored in: <generator object get\_controller at 0x11bd75f10>
+Traceback (most recent call last):
+  File "/anaconda2/envs/carnd-term1/lib/python3.5/site-packages/tensorflow/python/framework/ops.py", line 3523, in get\_controller
+    \% type(default))
+AssertionError: Nesting violated for default stack of <class 'tensorflow.python.framework.ops.Graph'> objects
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_154_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{fit-the-training-data-using-regression-model-with-lasso-l1-penalty-regularization-using-tensorflow.}{%
+\subsection{3-4. Fit the training data using regression model with lasso
+(L1 penalty) regularization using
+TensorFlow.}\label{fit-the-training-data-using-regression-model-with-lasso-l1-penalty-regularization-using-tensorflow.}}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
