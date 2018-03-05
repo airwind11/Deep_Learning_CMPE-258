@@ -1,0 +1,1001 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Assignment\_3\_Aravinda\_Misra}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{from} \PY{n+nn}{collections} \PY{k}{import} \PY{n}{defaultdict}
+         \PY{k+kn}{import} \PY{n+nn}{random}
+         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{Mnist\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ex3\PYZus{}train.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Alternative way of doing \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}Mnist\PYZus{}df\PYZus{}train\PYZus{}data = Mnist\PYZus{}df.as\PYZus{}matrix(columns=Mnist\PYZus{}df.columns[0:400])}
+         \PY{n}{Mnist\PYZus{}df\PYZus{}train\PYZus{}data} \PY{o}{=} \PY{n}{Mnist\PYZus{}df}\PY{o}{.}\PY{n}{values}
+         \PY{n}{Mnist\PYZus{}df\PYZus{}train\PYZus{}label} \PY{o}{=} \PY{n}{Mnist\PYZus{}df}\PY{o}{.}\PY{n}{as\PYZus{}matrix}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{n}{Mnist\PYZus{}df}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{400}\PY{p}{:}\PY{l+m+mi}{401}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}Mnist\PYZus{}df\PYZus{}train\PYZus{}data\PYZus{}with\PYZus{}bias = np.c\PYZus{}[np.ones((Mnist\PYZus{}df\PYZus{}train\PYZus{}data.shape[0] ,1)),Mnist\PYZus{}df\PYZus{}train\PYZus{}data]\PYZsh{}\PYZsh{} Add 1 for the bias}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{Mnist\PYZus{}df\PYZus{}test} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ex3\PYZus{}test.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{Mnist\PYZus{}df\PYZus{}test\PYZus{}data} \PY{o}{=} \PY{n}{Mnist\PYZus{}df\PYZus{}test}\PY{o}{.}\PY{n}{values}
+         \PY{n}{Mnist\PYZus{}df\PYZus{}test\PYZus{}label} \PY{o}{=} \PY{n}{Mnist\PYZus{}df\PYZus{}test}\PY{o}{.}\PY{n}{as\PYZus{}matrix}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{n}{Mnist\PYZus{}df}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{400}\PY{p}{:}\PY{l+m+mi}{401}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}Mnist\PYZus{}df\PYZus{}test\PYZus{}data\PYZus{}with\PYZus{}bias = np.c\PYZus{}[np.ones((Mnist\PYZus{}df\PYZus{}test\PYZus{}data.shape[0] ,1)),Mnist\PYZus{}df\PYZus{}test\PYZus{}data]\PYZsh{}\PYZsh{} Add 1 for the bias}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{Mnist\PYZus{}df\PYZus{}train\PYZus{}data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{Mnist\PYZus{}df\PYZus{}train\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+7.0
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Label set \PYZhy{} containing unique labels}
+         \PY{n}{Mnist\PYZus{}df\PYZus{}train\PYZus{}label\PYZus{}uq} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{n}{Mnist\PYZus{}df}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{400}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Being used for this assignment}
+         \PY{k}{def} \PY{n+nf}{label\PYZus{}dict\PYZus{}gen}\PY{p}{(}\PY{n}{label\PYZus{}set}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{}\PYZsh{} Useful for scaling if  huge number of labels (both number and string)}
+             \PY{n}{label\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+             \PY{n}{count} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{label} \PY{o+ow}{in} \PY{n}{label\PYZus{}set}\PY{p}{:}
+                 \PY{n}{label\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{o}{=}\PY{n}{count}
+                 \PY{n}{count} \PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+             \PY{k}{return} \PY{n}{label\PYZus{}dict}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{k}{def} \PY{n+nf}{sigmoid}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{+}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{data}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{k}{def} \PY{n+nf}{softmax\PYZus{}prediction}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{:}
+             \PY{n}{result}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{data}\PY{p}{)} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{keepdims}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             \PY{k}{return} \PY{n}{result} \PY{c+c1}{\PYZsh{}\PYZsh{} The max proability per coloumn(each coloumn represents a record , and }
+                                                  \PY{c+c1}{\PYZsh{}\PYZsh{} The complete result matrix to calculate the loss}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{k}{def} \PY{n+nf}{forward\PYZus{}prop}\PY{p}{(}\PY{n}{data}\PY{p}{,}\PY{n}{weights\PYZus{}list}\PY{p}{)}\PY{p}{:}
+             \PY{n}{hidden\PYZus{}input} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{weights\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{n}{weights\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{n}{hidden\PYZus{}output} \PY{o}{=} \PY{n}{sigmoid}\PY{p}{(}\PY{n}{hidden\PYZus{}input}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}hidden\PYZus{}output = np.c\PYZus{}[np.ones((hidden\PYZus{}output.shape[0] ,1)),hidden\PYZus{}output]\PYZsh{}\PYZsh{} Add 1 for the bias}
+             \PY{n}{output\PYZus{}before\PYZus{}softmax} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{hidden\PYZus{}output}\PY{p}{,}\PY{n}{weights\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{n}{weights\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}
+             \PY{n}{softmax\PYZus{}output} \PY{o}{=} \PY{n}{softmax\PYZus{}prediction}\PY{p}{(}\PY{n}{output\PYZus{}before\PYZus{}softmax}\PY{p}{)}
+             \PY{k}{return} \PY{n}{softmax\PYZus{}output}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{k}{def} \PY{n+nf}{Backward\PYZus{}prop}\PY{p}{(}\PY{n}{data}\PY{p}{,}\PY{n}{initial\PYZus{}weights}\PY{p}{,}\PY{n}{label\PYZus{}dict}\PY{p}{,}\PY{n}{learning\PYZus{}rate}\PY{p}{)}\PY{p}{:}
+             \PY{n}{hidden\PYZus{}input} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{initial\PYZus{}weights}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{n}{initial\PYZus{}weights}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{n}{hidden\PYZus{}output} \PY{o}{=} \PY{n}{sigmoid}\PY{p}{(}\PY{n}{hidden\PYZus{}input}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}hidden\PYZus{}output = np.c\PYZus{}[np.ones((hidden\PYZus{}output.shape[0] ,1)),hidden\PYZus{}output]\PYZsh{}\PYZsh{} Add 1 for the bias}
+             \PY{n}{output\PYZus{}before\PYZus{}softmax} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{hidden\PYZus{}output}\PY{p}{,}\PY{n}{initial\PYZus{}weights}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{n}{initial\PYZus{}weights}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}
+             \PY{n}{softmax\PYZus{}output} \PY{o}{=} \PY{n}{softmax\PYZus{}prediction}\PY{p}{(}\PY{n}{output\PYZus{}before\PYZus{}softmax}\PY{p}{)}
+             
+             \PY{n}{label\PYZus{}general} \PY{o}{=} \PY{p}{[}\PY{n}{label\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]} \PY{k}{for} \PY{n}{label} \PY{o+ow}{in} \PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+             \PY{n}{label\PYZus{}general} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{label\PYZus{}general}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}print (\PYZdq{}label\PYZdq{},label\PYZus{}general)}
+             \PY{c+c1}{\PYZsh{}\PYZsh{} Andrej Karpathy Course calcualting the product of softmax with autoencodin to give the cross\PYZhy{}entropy array                 }
+             \PY{n}{corect\PYZus{}logprobs} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{softmax\PYZus{}output}\PY{p}{[}\PY{n+nb}{range}\PY{p}{(}\PY{n}{softmax\PYZus{}output}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{label\PYZus{}general}\PY{p}{]}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}\PYZsh{} Sum the individual terms of output of autoencoding snd softmax in the above step and average it}
+             \PY{n}{loss} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{corect\PYZus{}logprobs}\PY{p}{)}\PY{o}{/}\PY{n}{softmax\PYZus{}output}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}    
+             
+           \PY{c+c1}{\PYZsh{} compute the gradient on scores}
+             \PY{n}{dsoftmax} \PY{o}{=} \PY{n}{softmax\PYZus{}output}
+             \PY{n}{dsoftmax}\PY{p}{[}\PY{n+nb}{range}\PY{p}{(}\PY{n}{softmax\PYZus{}output}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{label\PYZus{}general}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{l+m+mi}{1} \PY{c+c1}{\PYZsh{}\PYZsh{} Very elegant only the element with true label is updated}
+             \PY{n}{dsoftmax} \PY{o}{/}\PY{o}{=} \PY{n}{softmax\PYZus{}output}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             
+           \PY{c+c1}{\PYZsh{} backpropate the gradient to the 2nd layer weight}
+             \PY{n}{dW1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{hidden\PYZus{}output}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{dsoftmax}\PY{p}{)}
+             \PY{n}{db1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{dsoftmax}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{keepdims}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             
+           \PY{c+c1}{\PYZsh{} perform a parameter update}
+             \PY{n}{gradient\PYZus{}descent}\PY{p}{(}\PY{n}{initial\PYZus{}weights}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{dW1}\PY{p}{,}\PY{n}{learning\PYZus{}rate}\PY{p}{)}
+             \PY{n}{gradient\PYZus{}descent}\PY{p}{(}\PY{n}{initial\PYZus{}weights}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{n}{db1}\PY{p}{,}\PY{n}{learning\PYZus{}rate}\PY{p}{)}
+             
+             
+             \PY{n}{dlast} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{dsoftmax}\PY{p}{,}\PY{n}{initial\PYZus{}weights}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+             \PY{n}{dsigmoid} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{hidden\PYZus{}output}\PY{p}{,}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{hidden\PYZus{}output}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+             \PY{n}{dhidden} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{dsigmoid}\PY{p}{,}\PY{n}{dlast}\PY{p}{)}
+             
+           \PY{c+c1}{\PYZsh{} Backpropagate the gradient to 1st layer weights}
+             \PY{n}{dW0} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{n}{dhidden}\PY{p}{)}
+             \PY{n}{db0} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{dhidden}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{keepdims}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             
+           \PY{c+c1}{\PYZsh{} perform a parameter update}
+             \PY{n}{gradient\PYZus{}descent}\PY{p}{(}\PY{n}{initial\PYZus{}weights}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{dW0}\PY{p}{,}\PY{n}{learning\PYZus{}rate}\PY{p}{)}
+             \PY{n}{gradient\PYZus{}descent}\PY{p}{(}\PY{n}{initial\PYZus{}weights}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{db0}\PY{p}{,}\PY{n}{learning\PYZus{}rate}\PY{p}{)}
+             \PY{k}{return} \PY{n}{loss}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{k}{def} \PY{n+nf}{gradient\PYZus{}descent}\PY{p}{(}\PY{n}{weights}\PY{p}{,}\PY{n}{gradient}\PY{p}{,}\PY{n}{learning\PYZus{}rate}\PY{p}{)}\PY{p}{:}
+             \PY{n}{weights} \PY{o}{+}\PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{learning\PYZus{}rate} \PY{o}{*} \PY{n}{gradient}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{k}{def} \PY{n+nf}{SGD}\PY{p}{(}\PY{n}{training\PYZus{}data}\PY{p}{,} \PY{n}{epochs}\PY{p}{,} \PY{n}{mini\PYZus{}batch\PYZus{}size}\PY{p}{,}\PY{n}{initial\PYZus{}weights}\PY{p}{,}\PY{n}{Loss\PYZus{}graph}\PY{p}{,}\PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{o}{.}\PY{l+m+mi}{01}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{n} \PY{o}{=} \PY{n}{training\PYZus{}data}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{For Learning Rate}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,}\PY{n}{learning\PYZus{}rate} \PY{p}{)}
+                 \PY{k}{for} \PY{n}{epoch} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{epochs}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{mini\PYZus{}batch\PYZus{}size}\PY{o}{\PYZlt{}}\PY{n}{n} \PY{p}{:}
+                         \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{shuffle}\PY{p}{(}\PY{n}{training\PYZus{}data}\PY{p}{)}
+                     \PY{n}{mini\PYZus{}batches} \PY{o}{=} \PY{p}{[}\PY{n}{training\PYZus{}data}\PY{p}{[}\PY{n}{k}\PY{p}{:}\PY{n}{k}\PY{o}{+}\PY{n}{mini\PYZus{}batch\PYZus{}size}\PY{p}{]}\PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{n}\PY{p}{,} \PY{n}{mini\PYZus{}batch\PYZus{}size}\PY{p}{)}\PY{p}{]}
+                     \PY{c+c1}{\PYZsh{}print (len(mini\PYZus{}batches))}
+                     \PY{k}{for} \PY{n}{mini\PYZus{}batch} \PY{o+ow}{in} \PY{n}{mini\PYZus{}batches}\PY{p}{:}
+                         \PY{c+c1}{\PYZsh{}\PYZsh{} Loss gets updated with each batch and after the loop ends , the loss reflects the loss at end of 1 epoch}
+                         \PY{n}{Loss} \PY{o}{=} \PY{n}{Backward\PYZus{}prop}\PY{p}{(}\PY{n}{mini\PYZus{}batch}\PY{p}{,}\PY{n}{initial\PYZus{}weights}\PY{p}{,}\PY{n}{label\PYZus{}dict}\PY{p}{,}\PY{n}{learning\PYZus{}rate}\PY{p}{)}
+                         \PY{c+c1}{\PYZsh{}print (mini\PYZus{}batch[:,\PYZhy{}1])}
+                         \PY{c+c1}{\PYZsh{}break}
+                     \PY{c+c1}{\PYZsh{}break}
+                     \PY{k}{if} \PY{n}{epoch} \PY{o}{\PYZpc{}} \PY{l+m+mi}{1000}\PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                         \PY{n}{Loss\PYZus{}graph}\PY{p}{[}\PY{n}{learning\PYZus{}rate}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{Loss}\PY{p}{,}\PY{n}{epoch}\PY{p}{]}\PY{p}{)}
+                         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{iteration }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{: loss }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{epoch}\PY{p}{,} \PY{n}{Loss}\PY{p}{)}\PY{p}{)}
+                         \PY{n}{softmax\PYZus{}output} \PY{o}{=} \PY{n}{forward\PYZus{}prop}\PY{p}{(}\PY{n}{training\PYZus{}data}\PY{p}{,}\PY{n}{initial\PYZus{}weights}\PY{p}{)}
+                         \PY{n}{prediction} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{softmax\PYZus{}output}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+                         \PY{n}{label\PYZus{}general} \PY{o}{=} \PY{p}{[}\PY{n}{label\PYZus{}dict\PYZus{}gen}\PY{p}{(}\PY{n}{Mnist\PYZus{}df\PYZus{}train\PYZus{}label\PYZus{}uq}\PY{p}{)}\PY{p}{[}\PY{n}{label}\PY{p}{]} \PY{k}{for} \PY{n}{label} \PY{o+ow}{in} \PY{n}{training\PYZus{}data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+                         \PY{n}{label\PYZus{}general} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{label\PYZus{}general}\PY{p}{)}
+                         \PY{n+nb}{print}\PY{p}{(}\PY{n}{prediction}\PY{p}{,}\PY{n}{label\PYZus{}general}\PY{p}{)}
+                         \PY{n}{accuracy} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{prediction} \PY{o}{==} \PY{n}{label\PYZus{}general}\PY{p}{)}
+                         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{training accuracy: }\PY{l+s+si}{\PYZpc{}.4f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{accuracy}\PY{p}{)}
+                         \PY{k}{if} \PY{n}{accuracy}\PY{o}{\PYZgt{}}\PY{l+m+mf}{0.95}  \PY{p}{:}
+                             \PY{k}{break}
+                         
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n}{h} \PY{o}{=} \PY{l+m+mi}{25} \PY{c+c1}{\PYZsh{} size of hidden layer}
+         \PY{n}{features} \PY{o}{=} \PY{l+m+mi}{400} \PY{c+c1}{\PYZsh{} dimensionality}
+         \PY{n}{classes} \PY{o}{=} \PY{l+m+mi}{10} \PY{c+c1}{\PYZsh{} number of classes}
+         \PY{n}{label\PYZus{}dict} \PY{o}{=} \PY{n}{label\PYZus{}dict\PYZus{}gen}\PY{p}{(}\PY{n}{Mnist\PYZus{}df\PYZus{}train\PYZus{}label\PYZus{}uq}\PY{p}{)}
+         \PY{n}{learning\PYZus{}rate\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{o}{.}\PY{l+m+mi}{0001}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{001}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{01}\PY{p}{,}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Doing this for Full Batch}
+        \PY{n}{Loss\PYZus{}graph\PYZus{}AllData} \PY{o}{=} \PY{n}{defaultdict}\PY{p}{(}\PY{n+nb}{list}\PY{p}{)}
+        \PY{n}{batch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{3500}
+        \PY{n}{epochs\PYZus{}full} \PY{o}{=} \PY{l+m+mi}{100000}
+        \PY{n}{Weights\PYZus{}basedOn\PYZus{}Learning\PYZus{}Rate\PYZus{}fullbatch} \PY{o}{=} \PY{n}{defaultdict}\PY{p}{(}\PY{n+nb}{list}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}\PYZsh{} Doing this for Full Batch}
+        \PY{k}{for} \PY{n}{learning\PYZus{}rate} \PY{o+ow}{in} \PY{n}{learning\PYZus{}rate\PYZus{}list}\PY{p}{:}
+            \PY{n}{W0} \PY{o}{=} \PY{l+m+mf}{0.01} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{features}\PY{p}{,}\PY{n}{h}\PY{p}{)}
+            \PY{n}{b0} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{h}\PY{p}{)}\PY{p}{)}
+            \PY{n}{W1} \PY{o}{=} \PY{l+m+mf}{0.01} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{h}\PY{p}{,}\PY{n}{classes}\PY{p}{)}
+            \PY{n}{b1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{classes}\PY{p}{)}\PY{p}{)}
+            \PY{n}{initial\PYZus{}weights} \PY{o}{=} \PY{p}{[}\PY{n}{W0}\PY{p}{,}\PY{n}{b0}\PY{p}{,}\PY{n}{W1}\PY{p}{,}\PY{n}{b1}\PY{p}{]}
+            \PY{n}{SGD}\PY{p}{(}\PY{n}{Mnist\PYZus{}df\PYZus{}train\PYZus{}data}\PY{p}{,} \PY{n}{epochs}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{p}{,}\PY{n}{initial\PYZus{}weights}\PY{p}{,}\PY{n}{Loss\PYZus{}graph\PYZus{}AllData}\PY{p}{,}\PY{n}{learning\PYZus{}rate}\PY{p}{)}
+            \PY{n}{Weights\PYZus{}basedOn\PYZus{}Learning\PYZus{}Rate\PYZus{}fullbatch}\PY{p}{[}\PY{n}{learning\PYZus{}rate}\PY{p}{]} \PY{o}{=} \PY{n}{initial\PYZus{}weights}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Doing this for mini Batch}
+         \PY{n}{Loss\PYZus{}graph\PYZus{}stochastic} \PY{o}{=} \PY{n}{defaultdict}\PY{p}{(}\PY{n+nb}{list}\PY{p}{)}
+         \PY{n}{batch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{128}
+         \PY{n}{epochs\PYZus{}stochastic} \PY{o}{=} \PY{l+m+mi}{50000}
+         \PY{n}{Weights\PYZus{}basedOn\PYZus{}Learning\PYZus{}Rate} \PY{o}{=} \PY{n}{defaultdict}\PY{p}{(}\PY{n+nb}{list}\PY{p}{)}
+         \PY{k}{for} \PY{n}{learning\PYZus{}rate} \PY{o+ow}{in} \PY{n}{learning\PYZus{}rate\PYZus{}list}\PY{p}{:}
+             \PY{n}{W0\PYZus{}mini} \PY{o}{=} \PY{l+m+mf}{0.01} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{features}\PY{p}{,}\PY{n}{h}\PY{p}{)}
+             \PY{n}{b0\PYZus{}mini} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{h}\PY{p}{)}\PY{p}{)}
+             \PY{n}{W1\PYZus{}mini} \PY{o}{=} \PY{l+m+mf}{0.01} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{h}\PY{p}{,}\PY{n}{classes}\PY{p}{)}
+             \PY{n}{b1\PYZus{}mini} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{classes}\PY{p}{)}\PY{p}{)}
+             \PY{n}{initial\PYZus{}weights\PYZus{}mini} \PY{o}{=} \PY{p}{[}\PY{n}{W0\PYZus{}mini}\PY{p}{,}\PY{n}{b0\PYZus{}mini}\PY{p}{,}\PY{n}{W1\PYZus{}mini}\PY{p}{,}\PY{n}{b1\PYZus{}mini}\PY{p}{]}
+             \PY{n}{SGD}\PY{p}{(}\PY{n}{Mnist\PYZus{}df\PYZus{}train\PYZus{}data}\PY{p}{,} \PY{n}{epochs}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{p}{,}\PY{n}{initial\PYZus{}weights\PYZus{}mini}\PY{p}{,}\PY{n}{Loss\PYZus{}graph\PYZus{}stochastic}\PY{p}{,}\PY{n}{learning\PYZus{}rate}\PY{p}{)}
+             \PY{n}{Weights\PYZus{}basedOn\PYZus{}Learning\PYZus{}Rate}\PY{p}{[}\PY{n}{learning\PYZus{}rate}\PY{p}{]}\PY{o}{=}\PY{n}{initial\PYZus{}weights\PYZus{}mini}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+For Learning Rate 0.0001
+iteration 0: loss 2.300610
+[8 0 8 {\ldots} 8 8 8] [2 4 5 {\ldots} 0 6 8]
+training accuracy: 0.1217
+iteration 1000: loss 2.288943
+[2 2 2 {\ldots} 2 1 2] [9 4 7 {\ldots} 0 7 6]
+training accuracy: 0.1657
+iteration 2000: loss 2.271760
+[2 0 7 {\ldots} 2 7 1] [4 0 7 {\ldots} 3 9 1]
+training accuracy: 0.4703
+iteration 3000: loss 2.238190
+[7 1 1 {\ldots} 8 8 3] [7 5 1 {\ldots} 3 6 3]
+training accuracy: 0.6231
+iteration 4000: loss 2.212560
+[1 2 2 {\ldots} 3 1 2] [8 9 7 {\ldots} 3 3 2]
+training accuracy: 0.6926
+iteration 5000: loss 2.182745
+[3 1 8 {\ldots} 8 5 6] [5 5 8 {\ldots} 8 5 6]
+training accuracy: 0.7274
+iteration 6000: loss 2.148194
+[4 0 2 {\ldots} 9 4 4] [4 0 2 {\ldots} 9 4 4]
+training accuracy: 0.7520
+iteration 7000: loss 2.108868
+[0 8 9 {\ldots} 5 1 4] [9 8 9 {\ldots} 5 1 4]
+training accuracy: 0.7731
+iteration 8000: loss 2.078668
+[0 3 2 {\ldots} 2 0 5] [0 3 2 {\ldots} 2 5 5]
+training accuracy: 0.7814
+iteration 9000: loss 2.075206
+[4 7 1 {\ldots} 6 3 7] [4 7 1 {\ldots} 6 5 7]
+training accuracy: 0.8006
+iteration 10000: loss 2.014276
+[7 1 9 {\ldots} 0 5 7] [7 1 3 {\ldots} 0 5 4]
+training accuracy: 0.8123
+iteration 11000: loss 1.992171
+[3 3 1 {\ldots} 6 5 1] [3 8 7 {\ldots} 6 5 1]
+training accuracy: 0.8257
+iteration 12000: loss 1.962493
+[6 1 7 {\ldots} 7 1 7] [6 1 7 {\ldots} 7 1 7]
+training accuracy: 0.8369
+iteration 13000: loss 1.938630
+[6 3 7 {\ldots} 4 2 6] [8 3 7 {\ldots} 4 2 6]
+training accuracy: 0.8463
+iteration 14000: loss 1.813187
+[6 7 6 {\ldots} 8 7 2] [6 7 6 {\ldots} 8 7 2]
+training accuracy: 0.8517
+iteration 15000: loss 1.851538
+[2 3 5 {\ldots} 4 5 0] [2 3 5 {\ldots} 4 5 0]
+training accuracy: 0.8597
+iteration 16000: loss 1.797495
+[0 5 7 {\ldots} 6 3 0] [0 5 9 {\ldots} 6 3 0]
+training accuracy: 0.8640
+iteration 17000: loss 1.811212
+[2 3 6 {\ldots} 7 7 8] [2 3 2 {\ldots} 7 7 8]
+training accuracy: 0.8663
+iteration 18000: loss 1.809428
+[7 7 0 {\ldots} 6 4 0] [9 7 0 {\ldots} 6 8 0]
+training accuracy: 0.8706
+iteration 19000: loss 1.769475
+[6 1 6 {\ldots} 5 9 0] [6 1 6 {\ldots} 5 9 0]
+training accuracy: 0.8763
+iteration 20000: loss 1.659262
+[7 6 4 {\ldots} 3 6 6] [7 6 4 {\ldots} 3 6 5]
+training accuracy: 0.8794
+iteration 21000: loss 1.650470
+[1 1 2 {\ldots} 2 2 7] [1 1 2 {\ldots} 2 2 7]
+training accuracy: 0.8760
+iteration 22000: loss 1.687235
+[1 2 6 {\ldots} 1 7 9] [1 2 6 {\ldots} 1 7 9]
+training accuracy: 0.8857
+iteration 23000: loss 1.592273
+[5 6 7 {\ldots} 1 9 0] [5 6 7 {\ldots} 1 9 0]
+training accuracy: 0.8846
+iteration 24000: loss 1.556882
+[6 1 3 {\ldots} 7 1 6] [6 1 3 {\ldots} 7 1 6]
+training accuracy: 0.8846
+iteration 25000: loss 1.594105
+[9 1 8 {\ldots} 7 8 3] [9 1 1 {\ldots} 7 8 3]
+training accuracy: 0.8831
+iteration 26000: loss 1.521400
+[0 8 3 {\ldots} 5 6 0] [0 8 3 {\ldots} 5 6 0]
+training accuracy: 0.8826
+iteration 27000: loss 1.443801
+[7 6 2 {\ldots} 5 6 4] [7 6 2 {\ldots} 5 6 4]
+training accuracy: 0.8857
+iteration 28000: loss 1.505679
+[2 7 6 {\ldots} 5 8 7] [2 7 6 {\ldots} 5 8 7]
+training accuracy: 0.8909
+iteration 29000: loss 1.490657
+[6 4 7 {\ldots} 7 2 6] [3 4 9 {\ldots} 9 2 6]
+training accuracy: 0.8903
+iteration 30000: loss 1.489010
+[1 8 9 {\ldots} 8 8 5] [1 8 9 {\ldots} 8 8 9]
+training accuracy: 0.8906
+iteration 31000: loss 1.454264
+[1 8 3 {\ldots} 3 7 1] [8 4 3 {\ldots} 3 7 1]
+training accuracy: 0.8900
+iteration 32000: loss 1.376461
+[7 9 0 {\ldots} 5 5 1] [7 9 0 {\ldots} 5 5 1]
+training accuracy: 0.8903
+iteration 33000: loss 1.446167
+[7 0 9 {\ldots} 4 8 8] [7 7 9 {\ldots} 4 8 8]
+training accuracy: 0.8966
+iteration 34000: loss 1.340245
+[4 1 4 {\ldots} 4 2 0] [4 1 4 {\ldots} 4 2 0]
+training accuracy: 0.8946
+iteration 35000: loss 1.179666
+[4 8 6 {\ldots} 9 2 7] [7 3 6 {\ldots} 9 2 7]
+training accuracy: 0.8946
+iteration 36000: loss 1.232528
+[3 1 0 {\ldots} 6 3 0] [3 1 0 {\ldots} 6 3 0]
+training accuracy: 0.8974
+iteration 37000: loss 1.245304
+[5 7 3 {\ldots} 6 8 6] [5 7 3 {\ldots} 6 8 0]
+training accuracy: 0.8943
+iteration 38000: loss 1.248249
+[8 2 1 {\ldots} 3 0 6] [8 2 8 {\ldots} 3 0 6]
+training accuracy: 0.8963
+iteration 39000: loss 1.239411
+[1 1 0 {\ldots} 8 2 7] [1 3 0 {\ldots} 8 2 7]
+training accuracy: 0.8931
+iteration 40000: loss 1.288391
+[4 0 2 {\ldots} 8 3 7] [4 0 2 {\ldots} 3 3 7]
+training accuracy: 0.8934
+iteration 41000: loss 1.221365
+[1 0 1 {\ldots} 4 3 9] [1 0 1 {\ldots} 4 3 5]
+training accuracy: 0.9014
+iteration 42000: loss 1.226447
+[1 0 2 {\ldots} 7 0 0] [1 0 2 {\ldots} 7 0 0]
+training accuracy: 0.8951
+iteration 43000: loss 1.130120
+[8 5 3 {\ldots} 4 9 5] [8 5 5 {\ldots} 4 9 5]
+training accuracy: 0.8920
+iteration 44000: loss 1.191690
+[3 1 3 {\ldots} 8 7 1] [3 1 3 {\ldots} 8 7 1]
+training accuracy: 0.8974
+iteration 45000: loss 1.301709
+[7 4 6 {\ldots} 0 3 9] [7 4 6 {\ldots} 0 5 9]
+training accuracy: 0.8997
+iteration 46000: loss 1.035133
+[9 5 4 {\ldots} 5 5 6] [9 5 4 {\ldots} 5 6 6]
+training accuracy: 0.8966
+iteration 47000: loss 1.126442
+[4 5 5 {\ldots} 2 8 6] [4 5 5 {\ldots} 3 2 0]
+training accuracy: 0.9026
+iteration 48000: loss 1.136659
+[5 7 7 {\ldots} 8 8 3] [5 2 9 {\ldots} 8 8 8]
+training accuracy: 0.9011
+iteration 49000: loss 1.078776
+[7 4 5 {\ldots} 5 6 6] [7 4 5 {\ldots} 5 6 6]
+training accuracy: 0.9009
+For Learning Rate 0.001
+iteration 0: loss 2.299999
+[6 3 3 {\ldots} 6 3 3] [7 5 6 {\ldots} 7 7 4]
+training accuracy: 0.1106
+iteration 1000: loss 2.070524
+[6 8 5 {\ldots} 5 8 3] [6 8 5 {\ldots} 5 2 3]
+training accuracy: 0.8194
+iteration 2000: loss 1.790182
+[7 7 4 {\ldots} 3 2 8] [7 7 4 {\ldots} 3 2 8]
+training accuracy: 0.8069
+iteration 3000: loss 1.761631
+[8 7 8 {\ldots} 3 7 6] [1 7 8 {\ldots} 3 7 6]
+training accuracy: 0.8143
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda2/envs/carnd-term1/lib/python3.5/site-packages/ipykernel\_launcher.py:2: RuntimeWarning: overflow encountered in exp
+  
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+iteration 4000: loss 2.432586
+[3 1 2 {\ldots} 1 2 3] [5 0 2 {\ldots} 0 4 1]
+training accuracy: 0.0746
+iteration 5000: loss 2.073489
+[7 8 1 {\ldots} 1 0 7] [4 6 8 {\ldots} 9 4 4]
+training accuracy: 0.2711
+iteration 6000: loss 2.162143
+[1 1 1 {\ldots} 1 7 6] [6 1 8 {\ldots} 3 7 6]
+training accuracy: 0.2674
+iteration 7000: loss 2.283029
+[8 8 8 {\ldots} 8 8 8] [9 3 8 {\ldots} 6 3 8]
+training accuracy: 0.1306
+iteration 8000: loss 2.298436
+[2 2 2 {\ldots} 2 2 2] [8 3 8 {\ldots} 0 2 5]
+training accuracy: 0.1149
+iteration 9000: loss 2.298798
+[2 2 2 {\ldots} 2 2 2] [0 9 1 {\ldots} 5 9 9]
+training accuracy: 0.1114
+iteration 10000: loss 2.297395
+[2 2 2 {\ldots} 2 2 2] [2 7 4 {\ldots} 3 8 8]
+training accuracy: 0.1091
+iteration 11000: loss 2.300249
+[2 4 2 {\ldots} 2 2 2] [5 6 1 {\ldots} 3 0 1]
+training accuracy: 0.1114
+iteration 12000: loss 2.289105
+[2 2 2 {\ldots} 2 2 2] [4 5 4 {\ldots} 3 4 3]
+training accuracy: 0.1114
+iteration 13000: loss 2.301732
+[2 2 2 {\ldots} 2 2 2] [2 2 6 {\ldots} 9 1 9]
+training accuracy: 0.1109
+iteration 14000: loss 2.302177
+[2 2 2 {\ldots} 2 2 2] [1 8 0 {\ldots} 6 8 2]
+training accuracy: 0.1106
+iteration 15000: loss 2.303720
+[2 2 2 {\ldots} 2 2 2] [8 7 7 {\ldots} 2 2 6]
+training accuracy: 0.1100
+iteration 16000: loss 2.300738
+[2 2 2 {\ldots} 2 2 2] [3 2 1 {\ldots} 2 7 1]
+training accuracy: 0.1100
+iteration 17000: loss 2.303087
+[2 2 2 {\ldots} 2 2 2] [3 5 9 {\ldots} 4 5 2]
+training accuracy: 0.1097
+iteration 18000: loss 2.304931
+[2 2 2 {\ldots} 2 2 2] [5 6 8 {\ldots} 2 8 9]
+training accuracy: 0.1097
+iteration 19000: loss 2.301713
+[2 2 2 {\ldots} 2 2 2] [7 1 0 {\ldots} 5 6 5]
+training accuracy: 0.1094
+iteration 20000: loss 2.292002
+[2 2 2 {\ldots} 2 2 2] [0 8 6 {\ldots} 3 8 0]
+training accuracy: 0.1094
+iteration 21000: loss 2.299076
+[2 2 2 {\ldots} 2 2 2] [3 2 5 {\ldots} 9 1 7]
+training accuracy: 0.1091
+iteration 22000: loss 2.301300
+[2 2 2 {\ldots} 2 2 2] [7 4 3 {\ldots} 6 4 0]
+training accuracy: 0.1089
+iteration 23000: loss 2.300188
+[2 2 2 {\ldots} 2 2 2] [7 7 8 {\ldots} 8 7 1]
+training accuracy: 0.1089
+iteration 24000: loss 2.303070
+[2 2 2 {\ldots} 2 2 2] [4 5 8 {\ldots} 8 8 6]
+training accuracy: 0.1089
+iteration 25000: loss 2.300116
+[2 2 2 {\ldots} 7 2 2] [3 4 9 {\ldots} 7 8 7]
+training accuracy: 0.1086
+iteration 26000: loss 2.297523
+[2 2 2 {\ldots} 2 2 2] [4 1 3 {\ldots} 7 9 2]
+training accuracy: 0.1086
+iteration 27000: loss 2.285814
+[2 2 2 {\ldots} 4 2 2] [0 0 1 {\ldots} 4 0 3]
+training accuracy: 0.1083
+iteration 28000: loss 2.301269
+[2 4 2 {\ldots} 2 2 2] [5 7 3 {\ldots} 8 7 1]
+training accuracy: 0.1083
+iteration 29000: loss 2.306978
+[2 2 2 {\ldots} 2 2 2] [8 2 2 {\ldots} 4 4 1]
+training accuracy: 0.1080
+iteration 30000: loss 2.296904
+[2 2 2 {\ldots} 2 2 2] [8 2 0 {\ldots} 0 5 7]
+training accuracy: 0.1080
+iteration 31000: loss 2.274892
+[2 2 2 {\ldots} 2 2 2] [9 4 3 {\ldots} 7 0 8]
+training accuracy: 0.1080
+iteration 32000: loss 2.299925
+[2 2 2 {\ldots} 2 2 2] [8 7 5 {\ldots} 1 4 0]
+training accuracy: 0.1077
+iteration 33000: loss 2.303482
+[2 2 2 {\ldots} 2 2 2] [3 2 4 {\ldots} 8 7 6]
+training accuracy: 0.1074
+iteration 34000: loss 2.301212
+[2 2 2 {\ldots} 2 2 2] [2 7 3 {\ldots} 4 1 5]
+training accuracy: 0.1074
+iteration 35000: loss 2.295649
+[2 2 2 {\ldots} 2 2 2] [5 6 1 {\ldots} 6 2 5]
+training accuracy: 0.1074
+iteration 36000: loss 2.304037
+[2 2 2 {\ldots} 2 2 2] [3 9 0 {\ldots} 1 7 5]
+training accuracy: 0.1074
+iteration 37000: loss 2.296303
+[2 2 2 {\ldots} 2 2 2] [5 1 9 {\ldots} 5 1 0]
+training accuracy: 0.1074
+iteration 38000: loss 2.274619
+[2 2 2 {\ldots} 2 2 2] [8 0 8 {\ldots} 3 6 5]
+training accuracy: 0.1074
+iteration 39000: loss 2.302146
+[2 2 2 {\ldots} 2 2 2] [4 5 8 {\ldots} 1 0 0]
+training accuracy: 0.1074
+iteration 40000: loss 2.301978
+[2 2 2 {\ldots} 2 2 2] [5 2 7 {\ldots} 1 3 9]
+training accuracy: 0.1074
+iteration 41000: loss 2.303168
+[2 2 2 {\ldots} 2 2 2] [9 0 0 {\ldots} 9 7 3]
+training accuracy: 0.1074
+iteration 42000: loss 2.288534
+[2 2 2 {\ldots} 2 2 2] [0 9 0 {\ldots} 7 8 8]
+training accuracy: 0.1074
+iteration 43000: loss 2.299991
+[2 2 2 {\ldots} 2 2 2] [6 8 6 {\ldots} 3 5 2]
+training accuracy: 0.1074
+iteration 44000: loss 2.299325
+[2 2 2 {\ldots} 2 2 2] [5 1 5 {\ldots} 5 8 8]
+training accuracy: 0.1074
+iteration 45000: loss 2.300710
+[2 2 2 {\ldots} 2 2 2] [6 7 9 {\ldots} 1 4 1]
+training accuracy: 0.1074
+iteration 46000: loss 2.302301
+[2 2 2 {\ldots} 2 2 2] [1 6 1 {\ldots} 3 1 9]
+training accuracy: 0.1074
+iteration 47000: loss 2.296906
+[2 2 2 {\ldots} 2 2 2] [9 3 5 {\ldots} 2 6 3]
+training accuracy: 0.1074
+iteration 48000: loss 2.261811
+[2 2 2 {\ldots} 2 2 2] [6 4 3 {\ldots} 4 8 0]
+training accuracy: 0.1074
+iteration 49000: loss 2.296937
+[2 2 2 {\ldots} 2 2 2] [5 6 2 {\ldots} 5 6 8]
+training accuracy: 0.1074
+For Learning Rate 0.01
+iteration 0: loss 2.301318
+[1 1 1 {\ldots} 1 1 1] [4 1 4 {\ldots} 8 3 6]
+training accuracy: 0.0780
+iteration 1000: loss 2.258899
+[2 2 2 {\ldots} 2 2 2] [6 8 9 {\ldots} 4 2 9]
+training accuracy: 0.3129
+iteration 2000: loss 2.216418
+[2 2 2 {\ldots} 1 2 2] [3 9 9 {\ldots} 1 9 8]
+training accuracy: 0.3246
+iteration 3000: loss 2.201752
+[2 2 2 {\ldots} 2 2 2] [4 0 3 {\ldots} 9 7 6]
+training accuracy: 0.3137
+iteration 4000: loss 2.120478
+[2 2 2 {\ldots} 2 2 2] [8 4 4 {\ldots} 3 7 4]
+training accuracy: 0.3260
+iteration 5000: loss 2.112424
+[2 2 1 {\ldots} 2 2 2] [9 6 1 {\ldots} 6 9 2]
+training accuracy: 0.3534
+iteration 6000: loss 2.120081
+[7 2 2 {\ldots} 2 2 2] [7 2 3 {\ldots} 5 8 3]
+training accuracy: 0.3214
+iteration 7000: loss 2.082266
+[2 2 2 {\ldots} 2 2 2] [4 9 7 {\ldots} 3 3 9]
+training accuracy: 0.3377
+iteration 8000: loss 2.154797
+[2 2 2 {\ldots} 0 2 2] [3 8 3 {\ldots} 0 5 9]
+training accuracy: 0.3191
+iteration 9000: loss 2.124166
+[2 2 2 {\ldots} 7 2 2] [6 0 0 {\ldots} 4 2 8]
+training accuracy: 0.3329
+iteration 10000: loss 2.116152
+[2 2 2 {\ldots} 2 2 2] [2 6 3 {\ldots} 7 9 8]
+training accuracy: 0.3049
+iteration 11000: loss 2.202798
+[2 2 2 {\ldots} 2 2 2] [0 3 8 {\ldots} 5 5 1]
+training accuracy: 0.3017
+iteration 12000: loss 1.966240
+[0 1 2 {\ldots} 2 2 2] [0 1 8 {\ldots} 8 2 4]
+training accuracy: 0.2740
+iteration 13000: loss 2.019243
+[2 2 2 {\ldots} 2 2 2] [3 2 2 {\ldots} 0 5 9]
+training accuracy: 0.2774
+iteration 14000: loss 2.029714
+[2 2 6 {\ldots} 1 2 2] [5 7 6 {\ldots} 1 4 0]
+training accuracy: 0.2774
+iteration 15000: loss 2.106681
+[2 2 2 {\ldots} 2 2 2] [0 5 9 {\ldots} 8 7 1]
+training accuracy: 0.2780
+iteration 16000: loss 2.107191
+[1 2 2 {\ldots} 2 9 1] [1 1 2 {\ldots} 9 9 1]
+training accuracy: 0.2749
+iteration 17000: loss 2.248408
+[2 2 2 {\ldots} 2 2 2] [6 8 6 {\ldots} 4 5 6]
+training accuracy: 0.2749
+iteration 18000: loss 2.084739
+[2 2 2 {\ldots} 2 2 2] [4 5 2 {\ldots} 7 5 7]
+training accuracy: 0.2706
+iteration 19000: loss 2.173236
+[2 2 2 {\ldots} 0 2 2] [5 0 2 {\ldots} 0 2 8]
+training accuracy: 0.2649
+iteration 20000: loss 2.000395
+[2 7 2 {\ldots} 2 2 2] [3 7 3 {\ldots} 3 2 0]
+training accuracy: 0.2751
+iteration 21000: loss 2.073317
+[2 2 2 {\ldots} 1 2 2] [5 0 6 {\ldots} 1 9 2]
+training accuracy: 0.2583
+iteration 22000: loss 2.169138
+[2 2 9 {\ldots} 7 2 2] [9 2 9 {\ldots} 9 4 9]
+training accuracy: 0.2586
+iteration 23000: loss 2.116471
+[2 2 0 {\ldots} 2 2 2] [7 2 0 {\ldots} 0 0 0]
+training accuracy: 0.2577
+iteration 24000: loss 1.865224
+[2 5 1 {\ldots} 2 2 2] [2 5 1 {\ldots} 2 2 8]
+training accuracy: 0.2531
+iteration 25000: loss 2.213770
+[2 2 2 {\ldots} 2 2 2] [1 7 4 {\ldots} 4 4 9]
+training accuracy: 0.2509
+iteration 26000: loss 2.080843
+[2 2 2 {\ldots} 2 2 2] [6 8 9 {\ldots} 3 2 6]
+training accuracy: 0.2477
+iteration 27000: loss 2.047627
+[2 2 1 {\ldots} 2 1 2] [3 7 1 {\ldots} 8 1 3]
+training accuracy: 0.2563
+iteration 28000: loss 2.165384
+[2 2 2 {\ldots} 2 2 2] [4 1 2 {\ldots} 0 8 0]
+training accuracy: 0.2574
+iteration 29000: loss 2.162018
+[2 2 2 {\ldots} 2 2 2] [1 4 5 {\ldots} 3 0 4]
+training accuracy: 0.2440
+iteration 30000: loss 2.186545
+[2 2 2 {\ldots} 2 2 2] [0 9 9 {\ldots} 3 9 4]
+training accuracy: 0.2400
+iteration 31000: loss 2.180792
+[2 2 2 {\ldots} 2 2 2] [8 8 8 {\ldots} 3 1 8]
+training accuracy: 0.2331
+iteration 32000: loss 2.176088
+[2 2 2 {\ldots} 2 2 2] [2 1 6 {\ldots} 3 8 9]
+training accuracy: 0.2423
+iteration 33000: loss 2.184098
+[2 2 2 {\ldots} 2 2 2] [1 9 3 {\ldots} 0 5 4]
+training accuracy: 0.2391
+iteration 34000: loss 2.036627
+[2 2 2 {\ldots} 2 2 2] [5 9 6 {\ldots} 9 0 3]
+training accuracy: 0.2411
+iteration 35000: loss 2.109721
+[2 2 2 {\ldots} 2 9 9] [3 0 4 {\ldots} 5 9 7]
+training accuracy: 0.2351
+iteration 36000: loss 2.157980
+[5 2 2 {\ldots} 2 2 2] [5 4 6 {\ldots} 8 8 8]
+training accuracy: 0.2169
+iteration 37000: loss 2.166953
+[2 2 2 {\ldots} 2 2 2] [2 2 3 {\ldots} 9 8 4]
+training accuracy: 0.2151
+iteration 38000: loss 2.140944
+[1 2 2 {\ldots} 2 2 1] [1 8 0 {\ldots} 6 0 1]
+training accuracy: 0.2069
+iteration 39000: loss 2.035397
+[2 2 2 {\ldots} 2 2 2] [7 9 9 {\ldots} 0 7 8]
+training accuracy: 0.2086
+iteration 40000: loss 2.131570
+[2 2 2 {\ldots} 2 2 1] [1 6 8 {\ldots} 3 8 1]
+training accuracy: 0.2077
+iteration 41000: loss 2.117688
+[2 2 2 {\ldots} 2 2 2] [6 4 5 {\ldots} 1 2 5]
+training accuracy: 0.1957
+iteration 42000: loss 2.122781
+[2 2 2 {\ldots} 2 2 2] [2 2 9 {\ldots} 6 9 1]
+training accuracy: 0.2069
+iteration 43000: loss 2.162555
+[2 2 2 {\ldots} 2 2 2] [0 2 4 {\ldots} 2 9 8]
+training accuracy: 0.2077
+iteration 44000: loss 2.013427
+[2 2 2 {\ldots} 2 2 2] [4 0 9 {\ldots} 9 3 9]
+training accuracy: 0.2083
+iteration 45000: loss 1.922124
+[2 2 2 {\ldots} 2 2 2] [0 2 4 {\ldots} 9 7 7]
+training accuracy: 0.2126
+iteration 46000: loss 2.149168
+[2 2 7 {\ldots} 2 1 2] [3 8 7 {\ldots} 8 1 8]
+training accuracy: 0.2114
+iteration 47000: loss 2.082649
+[2 2 2 {\ldots} 1 2 2] [4 8 8 {\ldots} 1 3 8]
+training accuracy: 0.2043
+iteration 48000: loss 2.192511
+[2 2 2 {\ldots} 0 1 1] [8 0 1 {\ldots} 0 1 1]
+training accuracy: 0.2134
+iteration 49000: loss 2.114785
+[2 2 2 {\ldots} 2 2 2] [9 5 6 {\ldots} 8 3 4]
+training accuracy: 0.2134
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{n}{softmax\PYZus{}output\PYZus{}test} \PY{o}{=} \PY{n}{forward\PYZus{}prop}\PY{p}{(}\PY{n}{Mnist\PYZus{}df\PYZus{}test\PYZus{}data}\PY{p}{,}\PY{n}{Weights\PYZus{}basedOn\PYZus{}Learning\PYZus{}Rate}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{0001}\PY{p}{]}\PY{p}{)}
+         \PY{n}{label\PYZus{}general\PYZus{}test} \PY{o}{=} \PY{p}{[}\PY{n}{label\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]} \PY{k}{for} \PY{n}{label} \PY{o+ow}{in} \PY{n}{Mnist\PYZus{}df\PYZus{}test\PYZus{}data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+         \PY{n}{label\PYZus{}general\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{label\PYZus{}general\PYZus{}test}\PY{p}{)}
+         \PY{n}{prediction\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{softmax\PYZus{}output\PYZus{}test}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{prediction\PYZus{}test}\PY{p}{,}\PY{n}{label\PYZus{}general\PYZus{}test}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Testing\PYZus{}accuracy: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{prediction\PYZus{}test} \PY{o}{==} \PY{n}{label\PYZus{}general\PYZus{}test}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[9 5 5 {\ldots} 1 7 0] [9 6 5 {\ldots} 1 7 0]
+Testing\_accuracy: 0.86
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Iteration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{k}{for} \PY{n}{key}\PY{p}{,} \PY{n}{value} \PY{o+ow}{in} \PY{n}{Loss\PYZus{}graph\PYZus{}stochastic}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{arrayvalue} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{value}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{arrayvalue}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{arrayvalue}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}+}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Learning Rate }\PY{l+s+si}{\PYZpc{} 0.4f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}}\PY{k}{key})
+             \PY{n}{legend} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{shadow}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
